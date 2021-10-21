@@ -42,7 +42,7 @@ class AuthFragment(val itemClickListener: () -> Unit) : Fragment() {
             SpotifyConstants.REDIRECT_URI
         )
             .setShowDialog(false)
-            .setScopes(arrayOf("user-read-email", "user-read-private"))
+            .setScopes(SpotifyConstants.SCOPES)
             .build()
     }
 
