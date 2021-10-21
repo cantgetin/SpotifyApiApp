@@ -18,7 +18,7 @@ tools:context=".ui.playlists.PlaylistsFragment">
     app:layout_constraintTop_toTopOf="parent" />
 
 <androidx.recyclerview.widget.RecyclerView
-    android:id="@+id/recyclerView"
+    android:id="@+id/rView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:visibility="gone" />
