@@ -7,12 +7,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.main_activity.*
 import androidx.fragment.app.Fragment
+import com.example.coursespotifyapiproject.ui.analytics.AnalyticsFragment
+import com.example.coursespotifyapiproject.ui.auth.AuthFragment
+import com.example.coursespotifyapiproject.ui.playlists.PlaylistsFragment
+import com.example.coursespotifyapiproject.ui.user.UserFragment
 
 class MainActivity : AppCompatActivity() {
 
     val itemClickListener: () -> Unit = { ->
 
-        var fragment2 = MainFragment()
+        var fragment2 = UserFragment()
 
         navigation_bar.visibility = View.VISIBLE
 
@@ -44,8 +48,8 @@ class MainActivity : AppCompatActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             var selectedFragment: Fragment? = null
             when (item.itemId) {
-                R.id.navigation_user -> selectedFragment = MainFragment()
-                R.id.navigation_list -> selectedFragment = ListFragment()
+                R.id.navigation_user -> selectedFragment = UserFragment()
+                R.id.navigation_list -> selectedFragment = PlaylistsFragment()
                 R.id.navigation_analytics -> selectedFragment = AnalyticsFragment()
             }
             if (selectedFragment != null) {

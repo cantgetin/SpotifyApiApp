@@ -1,4 +1,4 @@
-package com.example.coursespotifyapiproject
+package com.example.coursespotifyapiproject.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.example.coursespotifyapiproject.R
 import com.example.spotifysigninexample.SpotifyConstants
 import com.spotify.sdk.android.authentication.AuthenticationClient
 import com.spotify.sdk.android.authentication.AuthenticationRequest
