@@ -6,4 +6,6 @@ class ApiHelper(private val apiService: ApiService) {
 
     suspend fun getUserFollowing(authorization: String) = apiService.getUserData(authorization)
 
+    suspend fun getUserPlaylists(authorization: String) = apiService.getUserPlaylists(authorization)
+
 }
