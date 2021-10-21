@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#181818"
+    tools:context=".MainFragment">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:text="Hey, User"
+        android:textColor="#FFFFFF"
+        android:textSize="35dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/userAvatar"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/userName"
+        tools:ignore="MissingConstraints"
+        tools:src="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/userCountry"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Country: RU"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/userAvatar"
+        app:layout_constraintTop_toTopOf="@id/userAvatar"
+        tools:ignore="MissingConstraints"
+        android:gravity="center_vertical|left"/>
+
+    <TextView
+        android:id="@+id/userId"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Id: qpr76"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/userAvatar"
+        app:layout_constraintTop_toBottomOf="@id/userCountry"
+        tools:ignore="MissingConstraints"
+        android:gravity="center_vertical|left"/>
+
+    <TextView
+        android:id="@+id/userProduct"
+        android:layout_width="0dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:text="Subscription: premium"
+        android:textColor="#FFFFFF"
+        android:textSize="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/userAvatar"
+        app:layout_constraintTop_toBottomOf="@id/userId"
+        app:layout_constraintBottom_toBottomOf="@id/userAvatar"
+        tools:ignore="MissingConstraints"
+        android:gravity="center_vertical|left"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
