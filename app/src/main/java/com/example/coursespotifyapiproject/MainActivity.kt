@@ -14,14 +14,21 @@ import com.example.coursespotifyapiproject.ui.user.UserFragment
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var userFragment: UserFragment
+    private lateinit var playlistsFragment: PlaylistsFragment
+    private lateinit var analyticsFragment: AnalyticsFragment
+
+
     val itemClickListener: () -> Unit = { ->
 
-        var fragment2 = UserFragment()
+        userFragment = UserFragment()
+        playlistsFragment = PlaylistsFragment()
+        analyticsFragment = AnalyticsFragment()
 
         navigation_bar.visibility = View.VISIBLE
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.container, fragment2)
+            .replace(R.id.container, userFragment)
             .commitNow()
 
     }
@@ -48,9 +55,9 @@ class MainActivity : AppCompatActivity() {
         BottomNavigationView.OnNavigationItemSelectedListener { item ->
             var selectedFragment: Fragment? = null
             when (item.itemId) {
-                R.id.navigation_user -> selectedFragment = UserFragment()
-                R.id.navigation_list -> selectedFragment = PlaylistsFragment()
-                R.id.navigation_analytics -> selectedFragment = AnalyticsFragment()
+                R.id.navigation_user -> selectedFragment = userFragment
+                R.id.navigation_list -> selectedFragment = playlistsFragment
+                R.id.navigation_analytics -> selectedFragment = analyticsFragment
             }
             if (selectedFragment != null) {
                 supportFragmentManager.beginTransaction().replace(
