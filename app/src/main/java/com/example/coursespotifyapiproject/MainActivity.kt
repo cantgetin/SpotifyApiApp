@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var analyticsFragment: AnalyticsFragment
 
 
-    val itemClickListener: () -> Unit = { ->
+    val userAuthenticated: () -> Unit = { ->
 
         userFragment = UserFragment()
         playlistsFragment = PlaylistsFragment()
@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    var fragment1 = AuthFragment(itemClickListener)
+    var fragment1 = AuthFragment(userAuthenticated)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

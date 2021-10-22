@@ -52,8 +52,8 @@ class AuthFragment(val itemClickListener: () -> Unit) : Fragment() {
         if (SpotifyConstants.AUTH_TOKEN_REQUEST_CODE == requestCode) {
             val response = AuthenticationClient.getResponse(resultCode, data)
             SpotifyConstants.TOKEN = response.accessToken
+            itemClickListener.invoke()
         }
-        itemClickListener.invoke()
     }
 }
 
