@@ -5,22 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import kotlinx.coroutines.Dispatchers
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.liveData
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coursespotifyapiproject.R
-import com.example.coursespotifyapiproject.data.api.ApiHelper
-import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
-import com.example.coursespotifyapiproject.data.model.User
 import com.example.coursespotifyapiproject.ui.playlists.PlaylistDetailsFragment
-import com.example.coursespotifyapiproject.ui.playlists.PlaylistsAdapter
-import com.example.coursespotifyapiproject.utils.Resource
 import com.example.coursespotifyapiproject.utils.Status
-import com.example.spotifysigninexample.SpotifyConstants
 import kotlinx.android.synthetic.main.user_fragment.*
 
 

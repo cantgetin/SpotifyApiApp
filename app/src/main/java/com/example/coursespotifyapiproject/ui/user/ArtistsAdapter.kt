@@ -17,7 +17,6 @@ class ArtistsAdapter(
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-A
         fun bind(artist: Artist) {
             itemView.apply {
 

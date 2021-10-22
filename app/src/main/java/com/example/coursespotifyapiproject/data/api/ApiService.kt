@@ -12,9 +12,6 @@ interface ApiService {
     @GET("me")
     suspend fun getUserData(@Header("Authorization") authorization: String?): User
 
-    @GET("me/following")
-    suspend fun getUserFollowing(@Header("Authorization") authorization: String?): User
-
     @GET("me/playlists")
     suspend fun getUserPlaylists(@Header("Authorization") authorization: String?): SpotifyComplexResponsePlaylists
 

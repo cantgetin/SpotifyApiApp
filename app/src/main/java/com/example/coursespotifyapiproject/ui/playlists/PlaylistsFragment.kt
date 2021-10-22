@@ -8,12 +8,10 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.utils.Status
-import kotlinx.android.synthetic.main.playlists_fragment.*
 
 
 class PlaylistsFragment() : Fragment() {
@@ -50,7 +48,7 @@ class PlaylistsFragment() : Fragment() {
     }
 
 
-    val itemClickListener: (View, String) -> Unit = { view, id ->
+    val itemClickListener: (String) -> Unit = { id ->
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.container, PlaylistDetailsFragment(id)).commitNow()
     }
