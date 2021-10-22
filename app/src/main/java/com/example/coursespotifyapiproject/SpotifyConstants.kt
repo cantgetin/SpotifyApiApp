@@ -6,6 +6,6 @@ object SpotifyConstants {
     val AUTH_TOKEN_REQUEST_CODE = 0x10
     val REDIRECT_URI = "http://localhost:8888/callback/"
     var TOKEN = ""
-    var SCOPES = arrayOf("user-read-email", "user-read-private")
+    var SCOPES = arrayOf("user-read-email", "user-read-private","user-top-read")
 
 }
