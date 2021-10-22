@@ -89,7 +89,7 @@ class UserFragment() : Fragment() {
                 Status.SUCCESS -> {
                     resource.data?.let { artist ->
                         adapter.addArtists(artist.items)
-
+                        progressBar.visibility = View.GONE
                     }
                 }
                 Status.ERROR -> {
@@ -97,7 +97,7 @@ class UserFragment() : Fragment() {
                     Toast.makeText(context, resource.message, Toast.LENGTH_LONG).show()
                 }
                 Status.LOADING -> {
-
+                    progressBar.visibility = View.VISIBLE
                 }
             }
 
