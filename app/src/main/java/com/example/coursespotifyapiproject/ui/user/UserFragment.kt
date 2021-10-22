@@ -9,11 +9,15 @@ import kotlinx.coroutines.Dispatchers
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.liveData
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.data.api.ApiHelper
 import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
 import com.example.coursespotifyapiproject.data.model.User
+import com.example.coursespotifyapiproject.ui.playlists.PlaylistDetailsFragment
+import com.example.coursespotifyapiproject.ui.playlists.PlaylistsAdapter
 import com.example.coursespotifyapiproject.utils.Resource
 import com.example.coursespotifyapiproject.utils.Status
 import com.example.spotifysigninexample.SpotifyConstants
@@ -23,6 +27,8 @@ import kotlinx.android.synthetic.main.user_fragment.*
 class UserFragment() : Fragment() {
 
     private lateinit var viewModel: UserViewModel
+    private lateinit var adapter: ArtistsAdapter
+    private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +36,22 @@ class UserFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        return inflater.inflate(R.layout.user_fragment, container, false)
+        var view =  inflater.inflate(R.layout.user_fragment, container, false)
+
+        view.apply {
+            recyclerView = view.findViewById(R.id.topArtistRecyclerView)
+            recyclerView.layoutManager = LinearLayoutManager(activity)
+        }
+
+        adapter = ArtistsAdapter(arrayListOf(), itemClickListener)
+        recyclerView.adapter = adapter
+
+        return view
+    }
+
+    val itemClickListener: (View, String) -> Unit = { view, id ->
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.container, PlaylistDetailsFragment(id)).commitNow()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -67,13 +88,27 @@ class UserFragment() : Fragment() {
                 }
                 Status.LOADING -> {
                     progressBar.visibility = View.VISIBLE
-                    userName.visibility = View.GONE
-                    userCountry.visibility = View.GONE
-                    userProduct.visibility = View.GONE
-                    userId.visibility = View.GONE
-                    userAvatar.visibility = View.GONE
                 }
             }
+        }
+
+        viewModel.getUserTopArtists().observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.SUCCESS -> {
+                    resource.data?.let { artist ->
+                        adapter.addArtists(artist.items)
+
+                    }
+                }
+                Status.ERROR -> {
+
+                    Toast.makeText(context, resource.message, Toast.LENGTH_LONG).show()
+                }
+                Status.LOADING -> {
+
+                }
+            }
+
         }
     }
 

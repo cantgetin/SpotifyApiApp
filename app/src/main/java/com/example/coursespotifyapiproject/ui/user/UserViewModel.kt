@@ -28,5 +28,14 @@ class UserViewModel : ViewModel() {
         }
     }
 
+    fun getUserTopArtists() = liveData(Dispatchers.IO) {
+        emit(Resource.loading(data = null))
+        try {
+            emit(Resource.success(data = apiHelper.getUserTopArtists("Bearer $accessToken")))
+        } catch (exception: Exception) {
+            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
+        }
+    }
+
 
 }
