@@ -16,11 +16,6 @@ import com.example.coursespotifyapiproject.utils.Status
 import kotlinx.android.synthetic.main.playlists_fragment.*
 
 
-
-
-
-
-
 class PlaylistsFragment() : Fragment() {
 
     private lateinit var adapter: PlaylistsAdapter
@@ -55,20 +50,14 @@ class PlaylistsFragment() : Fragment() {
     }
 
 
-    val itemClickListener: (View, String) -> Unit = { view, id -> }
+    val itemClickListener: (View, String) -> Unit = { view, id ->
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.container, PlaylistDetailsFragment(id)).commitNow()
+    }
 
-    fun setupUI()
-    {
-        adapter = PlaylistsAdapter(arrayListOf(),itemClickListener)
-        /*recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                recyclerView.context,
-                (recyclerView.layoutManager as LinearLayoutManager).orientation
-            )
-        )*/
+    fun setupUI() {
+        adapter = PlaylistsAdapter(arrayListOf(), itemClickListener)
         recyclerView.adapter = adapter
-
-        var lol = 5
     }
 
     private fun setupObservers() {
@@ -79,16 +68,6 @@ class PlaylistsFragment() : Fragment() {
                     progressBar.visibility = View.GONE
                     resource.data?.let { response ->
                         adapter.addPlaylists(response.items)
-                        /*viewModel.setAllUsersToDatabase(
-                            users = users.map { user ->
-                                UserDB(
-                                    id = user.id,
-                                    name = user.name,
-                                    avatar = user.avatar,
-                                    email = user.email,
-                                )
-                            }
-                        )*/
                     }
                 }
                 Status.ERROR -> {
@@ -102,12 +81,5 @@ class PlaylistsFragment() : Fragment() {
                 }
             }
         }
-
-        /*viewModel.localUsers.observe(viewLifecycleOwner) {
-            it
-        }*/
     }
-
-
-
 }
