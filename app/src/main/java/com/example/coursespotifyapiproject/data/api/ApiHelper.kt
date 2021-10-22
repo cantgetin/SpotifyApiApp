@@ -8,4 +8,6 @@ class ApiHelper(private val apiService: ApiService) {
 
     suspend fun getUserPlaylists(authorization: String) = apiService.getUserPlaylists(authorization)
 
+    suspend fun getUserTopArtists(authorization: String) = apiService.getUserTopArtists(authorization)
+
 }
