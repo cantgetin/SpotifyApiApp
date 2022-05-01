@@ -1,4 +1,4 @@
-package com.example.coursespotifyapiproject.ui.playlists
+package com.example.coursespotifyapiproject.ui.tracks
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,15 +11,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coursespotifyapiproject.R
-import com.example.coursespotifyapiproject.ui.tracks.TracksFragment
 import com.example.coursespotifyapiproject.utils.Status
 
 
-class PlaylistsFragment() : Fragment() {
+class TracksFragment(private var playlistId: String) : Fragment() {
 
-    private lateinit var adapter: PlaylistsAdapter
+    private lateinit var adapter: TracksAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: PlaylistsViewModel
+    private lateinit var viewModel: TracksViewModel
     private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
@@ -28,7 +27,7 @@ class PlaylistsFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        var view = inflater.inflate(R.layout.playlists_fragment, container, false)
+        var view = inflater.inflate(R.layout.tracks_fragment, container, false)
 
         view.apply {
             recyclerView = view.findViewById(R.id.rView)
@@ -42,7 +41,7 @@ class PlaylistsFragment() : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PlaylistsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(TracksViewModel::class.java)
 
         setupUI()
         setupObservers()
@@ -51,22 +50,22 @@ class PlaylistsFragment() : Fragment() {
 
     val itemClickListener: (String) -> Unit = { id ->
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, TracksFragment(id)).commitNow()
+            .replace(R.id.container, TrackDetailsFragment(id)).commitNow()
     }
 
     fun setupUI() {
-        adapter = PlaylistsAdapter(arrayListOf(), itemClickListener)
+        adapter = TracksAdapter(arrayListOf(), itemClickListener)
         recyclerView.adapter = adapter
     }
 
     private fun setupObservers() {
-        viewModel.getPlaylists().observe(viewLifecycleOwner) { resource ->
+        viewModel.getTracks(playlistId).observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
                     recyclerView.visibility = View.VISIBLE
                     progressBar.visibility = View.GONE
                     resource.data?.let { response ->
-                        adapter.addPlaylists(response.items)
+                        adapter.addTracks(response.items)
                     }
                 }
                 Status.ERROR -> {
