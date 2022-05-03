@@ -1,6 +1,7 @@
 package com.example.coursespotifyapiproject
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -11,16 +12,53 @@ import com.example.coursespotifyapiproject.ui.analytics.AnalyticsFragment
 import com.example.coursespotifyapiproject.ui.auth.AuthFragment
 import com.example.coursespotifyapiproject.ui.playlists.PlaylistsFragment
 import com.example.coursespotifyapiproject.ui.user.UserFragment
+import com.example.spotifysigninexample.SpotifyConstants
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var pref: SharedPreferences;
     private lateinit var userFragment: UserFragment
     private lateinit var playlistsFragment: PlaylistsFragment
     private lateinit var analyticsFragment: AnalyticsFragment
 
 
-    val userAuthenticated: () -> Unit = { ->
+    private val authenticatedFromAuthFragment: () -> Unit = { ->
 
+        val edit: SharedPreferences.Editor = pref.edit();
+        edit.putString("spotify_auth_token", SpotifyConstants.TOKEN)
+        edit.clear().apply()
+        userAuthenticated()
+    }
+
+    private var fragment1 = AuthFragment(authenticatedFromAuthFragment)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.main_activity)
+
+        var bottomNav: BottomNavigationView = findViewById(R.id.navigation_bar)
+        bottomNav.setOnNavigationItemSelectedListener(navListener)
+
+        navigation_bar.visibility = View.GONE
+
+        pref = getSharedPreferences("spotify_api_app", MODE_PRIVATE);
+
+        if (userHasAuthKeyStored()) {
+            SpotifyConstants.TOKEN = pref.getString("spotify_auth_token", null)!!
+            userAuthenticated()
+        } else startUserAuthentication(savedInstanceState)
+
+    }
+
+    private fun startUserAuthentication(savedInstanceState: Bundle?) {
+        if (savedInstanceState == null) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, fragment1)
+                .commitNow()
+        }
+    }
+
+    private fun userAuthenticated() {
         userFragment = UserFragment()
         playlistsFragment = PlaylistsFragment()
         analyticsFragment = AnalyticsFragment()
@@ -33,22 +71,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    var fragment1 = AuthFragment(userAuthenticated)
+    private fun userHasAuthKeyStored(): Boolean {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
-
-        var bottomNav: BottomNavigationView = findViewById(R.id.navigation_bar)
-        bottomNav.setOnNavigationItemSelectedListener(navListener)
-
-        navigation_bar.visibility = View.GONE
-
-        if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, fragment1)
-                .commitNow()
-        }
+        return pref.getString("spotify_auth_token", null) != null;
     }
 
     private val navListener =
