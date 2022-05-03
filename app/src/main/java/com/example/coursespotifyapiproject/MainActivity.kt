@@ -21,19 +21,23 @@ class MainActivity : AppCompatActivity() {
     private lateinit var playlistsFragment: PlaylistsFragment
     private lateinit var analyticsFragment: AnalyticsFragment
 
-
-    private val authenticatedFromAuthFragment: () -> Unit = { ->
-
-        val edit: SharedPreferences.Editor = pref.edit();
-        edit.putString("spotify_auth_token", SpotifyConstants.TOKEN)
-        edit.clear().apply()
-        userAuthenticated()
-    }
-
-    private var fragment1 = AuthFragment(authenticatedFromAuthFragment)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        pref = getSharedPreferences("spotify_api_app", MODE_PRIVATE);
+
+        var data = getIntent().getData();
+        if (data != null)
+        {
+            val mainPart: String = data.toString().split("#")[1]
+            val arguments: List<String> = mainPart.split("&")
+            val argument = arguments[0]
+            val token = argument.split("=").toTypedArray()[1]
+            val edit: SharedPreferences.Editor = pref.edit();
+            edit.putString("spotify_auth_token", token)
+            edit.clear().apply()
+        }
+
         setContentView(R.layout.main_activity)
 
         var bottomNav: BottomNavigationView = findViewById(R.id.navigation_bar)
@@ -41,7 +45,7 @@ class MainActivity : AppCompatActivity() {
 
         navigation_bar.visibility = View.GONE
 
-        pref = getSharedPreferences("spotify_api_app", MODE_PRIVATE);
+
 
         if (userHasAuthKeyStored()) {
             SpotifyConstants.TOKEN = pref.getString("spotify_auth_token", null)!!
@@ -53,7 +57,7 @@ class MainActivity : AppCompatActivity() {
     private fun startUserAuthentication(savedInstanceState: Bundle?) {
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.container, fragment1)
+                .replace(R.id.container, AuthFragment())
                 .commitNow()
         }
     }
@@ -92,14 +96,6 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
-
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        fragment1.onActivityResult(requestCode, resultCode, data)
-
-    }
-
 
 }
 

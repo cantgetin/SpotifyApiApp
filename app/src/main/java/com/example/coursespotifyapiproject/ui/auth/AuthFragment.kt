@@ -14,7 +14,7 @@ import com.spotify.sdk.android.authentication.AuthenticationResponse
 import kotlinx.android.synthetic.main.auth_fragment.view.*
 
 
-class AuthFragment(val itemClickListener: () -> Unit) : Fragment() {
+class AuthFragment() : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,12 +25,10 @@ class AuthFragment(val itemClickListener: () -> Unit) : Fragment() {
 
         view.spotify_login_btn.setOnClickListener {
             val request = getAuthenticationRequest(AuthenticationResponse.Type.TOKEN)
-            AuthenticationClient.openLoginActivity(
-                getActivity(),
-                SpotifyConstants.AUTH_TOKEN_REQUEST_CODE,
+            AuthenticationClient.openLoginInBrowser(
+                activity,
                 request
             )
-
         }
 
         return view
@@ -47,14 +45,6 @@ class AuthFragment(val itemClickListener: () -> Unit) : Fragment() {
             .build()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (SpotifyConstants.AUTH_TOKEN_REQUEST_CODE == requestCode) {
-            val response = AuthenticationClient.getResponse(resultCode, data)
-            SpotifyConstants.TOKEN = response.accessToken
-            itemClickListener.invoke()
-        }
-    }
 }
 
 
