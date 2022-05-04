@@ -26,7 +26,7 @@ class ArtistsAdapter(
 
                 artistName.text = artist.name
                 artistGenres.text = artist.name
-                this.let { Glide.with(it).load(artist.images[0].url).into(artistImage) };
+                this.let { Glide.with(it).load(artist.images[0].url).into(artistImage) }
             }
         }
 
@@ -37,16 +37,16 @@ class ArtistsAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ArtistsAdapter.DataViewHolder {
+    ): DataViewHolder {
 
-        var view = LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.artist_item_layout, parent, false)
-        val vh = DataViewHolder(view);
+        val vh = DataViewHolder(view)
         vh.onClick(itemClickListener)
         return vh
     }
 
-    override fun onBindViewHolder(holder: ArtistsAdapter.DataViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(artists[position])
         holder.itemView.setOnClickListener { view ->
             itemClickListener.invoke(view, artists[position].id)
@@ -60,7 +60,7 @@ class ArtistsAdapter(
         }
     }
 
-    override fun getItemCount(): Int = artists.size
+    override fun getItemCount(): Int = this.artists.size
 
 
 }

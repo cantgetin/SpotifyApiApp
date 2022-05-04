@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coursespotifyapiproject.R
+import com.example.coursespotifyapiproject.data.model.Artist
 import com.example.coursespotifyapiproject.ui.playlists.PlaylistDetailsFragment
 import com.example.coursespotifyapiproject.utils.Status
 import kotlinx.android.synthetic.main.user_fragment.*
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.user_fragment.*
 class UserFragment() : Fragment() {
 
     private lateinit var viewModel: UserViewModel
-    private lateinit var adapter: ArtistsAdapter
+    private lateinit var artistsAdapter: ArtistsAdapter
     private lateinit var recyclerView: RecyclerView
 
     override fun onCreateView(
@@ -30,14 +31,16 @@ class UserFragment() : Fragment() {
 
         var view =  inflater.inflate(R.layout.user_fragment, container, false)
 
+        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        setupUI()
+
         view.apply {
+
             recyclerView = view.findViewById(R.id.topArtistRecyclerView)
+            artistsAdapter = ArtistsAdapter(arrayListOf(), itemClickListener)
+            recyclerView.adapter = artistsAdapter
             recyclerView.layoutManager = LinearLayoutManager(activity)
         }
-
-        adapter = ArtistsAdapter(arrayListOf(), itemClickListener)
-        recyclerView.adapter = adapter
-
         return view
     }
 
@@ -46,14 +49,27 @@ class UserFragment() : Fragment() {
             .replace(R.id.container, PlaylistDetailsFragment(id)).commitNow()
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-
-        setupUI()
-    }
-
     private fun setupUI() {
+
+        viewModel.getUserTopArtists().observe(viewLifecycleOwner) { resource ->
+            when (resource.status) {
+                Status.SUCCESS -> {
+                    resource.data?.let { artist ->
+                        artistsAdapter.addArtists(artist.items.take(5))
+                        //progressBar.visibility = View.GONE
+                    }
+                }
+                Status.ERROR -> {
+
+                    Toast.makeText(context, resource.message, Toast.LENGTH_LONG).show()
+                }
+                Status.LOADING -> {
+                    progressBar.visibility = View.VISIBLE
+                }
+            }
+
+        }
+
         viewModel.getUserInfo().observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
@@ -84,24 +100,7 @@ class UserFragment() : Fragment() {
             }
         }
 
-        viewModel.getUserTopArtists().observe(viewLifecycleOwner) { resource ->
-            when (resource.status) {
-                Status.SUCCESS -> {
-                    resource.data?.let { artist ->
-                        adapter.addArtists(artist.items)
-                        progressBar.visibility = View.GONE
-                    }
-                }
-                Status.ERROR -> {
 
-                    Toast.makeText(context, resource.message, Toast.LENGTH_LONG).show()
-                }
-                Status.LOADING -> {
-                    progressBar.visibility = View.VISIBLE
-                }
-            }
-
-        }
     }
 
 }
