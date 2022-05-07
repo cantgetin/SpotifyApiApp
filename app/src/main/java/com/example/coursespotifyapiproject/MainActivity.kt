@@ -23,6 +23,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var playlistsFragment: PlaylistsFragment
     private lateinit var analyticsFragment: AnalyticsFragment
 
+    private lateinit var activeFragment: Fragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -71,10 +73,11 @@ class MainActivity : AppCompatActivity() {
 
         navigation_bar.visibility = View.VISIBLE
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.container, userFragment)
-            .commitNow()
+        supportFragmentManager.beginTransaction().add(R.id.container, analyticsFragment, "3").hide(analyticsFragment).commit();
+        supportFragmentManager.beginTransaction().add(R.id.container, playlistsFragment, "2").hide(playlistsFragment).commit();
+        supportFragmentManager.beginTransaction().add(R.id.container,userFragment, "1").commit();
 
+        activeFragment = userFragment;
     }
 
     private fun userHasAuthKeyStored(): Boolean {
@@ -91,10 +94,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_analytics -> selectedFragment = analyticsFragment
             }
             if (selectedFragment != null) {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.container,
-                    selectedFragment
-                ).commit()
+                supportFragmentManager.beginTransaction().hide(activeFragment).show(selectedFragment).commit();
+                activeFragment = selectedFragment;
             }
             true
         }
