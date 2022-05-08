@@ -1,12 +1,10 @@
 package com.example.coursespotifyapiproject.data.api
 
-import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponsePlaylists
-import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseTopArtists
-import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseTracks
-import com.example.coursespotifyapiproject.data.model.User
+import com.example.coursespotifyapiproject.data.model.*
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 
 interface ApiService {
@@ -25,5 +23,11 @@ interface ApiService {
         @Header("Authorization") authorization: String?,
         @Path("playlist_id") playlistId: String
     ): SpotifyComplexResponseTracks
+
+    @GET("artists")
+    suspend fun getSeveralArtists(
+        @Header("Authorization") authorization: String?,
+        @Query("ids", encoded = true) ids: String
+    ): SpotifyComplexResponseArtists
 
 }

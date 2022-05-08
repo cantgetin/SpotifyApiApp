@@ -21,6 +21,8 @@
         android:id="@+id/rView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:layout_marginBottom="48dp"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
