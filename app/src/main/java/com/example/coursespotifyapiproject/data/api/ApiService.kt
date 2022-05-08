@@ -19,7 +19,7 @@ interface ApiService {
     suspend fun getUserTopArtists(@Header("Authorization") authorization: String?): SpotifyComplexResponseTopArtists
 
     @GET("playlists/{playlist_id}/tracks")
-    suspend fun getUserTracks(
+    suspend fun getPlaylistTracks(
         @Header("Authorization") authorization: String?,
         @Path("playlist_id") playlistId: String
     ): SpotifyComplexResponseTracks

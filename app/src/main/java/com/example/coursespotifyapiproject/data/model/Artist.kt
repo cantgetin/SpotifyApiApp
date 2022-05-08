@@ -11,5 +11,5 @@ data class Artist(
     @SerializedName("id")
     val id: String,
     @SerializedName("genres")
-    val genres: List<String>
+    var genres: List<String>
 )

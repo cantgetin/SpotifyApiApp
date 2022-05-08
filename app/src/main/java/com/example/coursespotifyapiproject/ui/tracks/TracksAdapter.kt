@@ -1,5 +1,6 @@
 package com.example.coursespotifyapiproject.ui.tracks
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,12 +22,18 @@ class TracksAdapter(
         fun bind(track: Track) {
             itemView.apply {
                 val trackTitle = this.findViewById<TextView>(R.id.trackTitle)
-                val trackId = this.findViewById<TextView>(R.id.trackId)
+                val trackArtists = this.findViewById<TextView>(R.id.trackArtists)
                 val trackImage = this.findViewById<ImageView>(R.id.trackImage)
+                val trackGenres = this.findViewById<TextView>(R.id.trackGenres)
 
+                trackGenres.text = track.artists[0].genres[0]
                 trackTitle.text = track.title
-                trackId.text = track.id
-                //this.let { Glide.with(it).load(track.images[0].url).into(trackImage) };
+                track.artists.forEachIndexed { index, artist ->
+                    if (index == 0) trackArtists.text = artist.name;
+                    else trackArtists.text = String.format(trackArtists.text.toString()+", "+artist.name);
+                }
+                this.let { Glide.with(it).load(track.album.images[0].url).into(trackImage) };
+
             }
         }
 
