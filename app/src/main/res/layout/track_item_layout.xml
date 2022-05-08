@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="60dp">
+    android:layout_height="80dp">
 
     <ImageView
         android:id="@+id/trackImage"
-        android:layout_width="60dp"
+        android:layout_width="80dp"
         android:layout_height="0dp"
         android:padding="4dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -20,21 +20,44 @@
         android:id="@+id/trackTitle"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="25dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/trackImage"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="MindOrks" />
+        tools:text="Summertime Sadness"
+        android:textSize="20sp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/trackId"
+        android:id="@+id/trackArtists"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/trackTitle"
         app:layout_constraintTop_toBottomOf="@+id/trackTitle"
-        tools:text="MindOrks" />
+        tools:text="Lana Del Rey" />
+
+    <ImageView
+        android:background="@drawable/genre_image_rounded_corners"
+        android:color="#1DB954"
+        android:id="@+id/genreColor"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        app:layout_constraintStart_toStartOf="@id/trackArtists"
+        app:layout_constraintTop_toBottomOf="@id/trackArtists"
+        app:layout_constraintBottom_toBottomOf="@id/trackGenres"
+        tools:ignore="MissingConstraints" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_marginStart="6dp"
+        android:id="@+id/trackGenres"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/genreColor"
+        app:layout_constraintTop_toBottomOf="@+id/trackArtists"
+        tools:text="Art pop" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
