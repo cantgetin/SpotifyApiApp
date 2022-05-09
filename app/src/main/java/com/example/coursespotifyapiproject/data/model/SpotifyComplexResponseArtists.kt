@@ -5,6 +5,6 @@ import com.google.gson.annotations.SerializedName
 data class SpotifyComplexResponseArtists(
 
     @SerializedName("artists")
-    val artists: List<Artist>
+    var artists: List<Artist>
 
 )

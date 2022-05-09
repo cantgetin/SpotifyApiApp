@@ -1,5 +1,7 @@
 package com.example.coursespotifyapiproject.data.api
 
+import android.util.Log
+import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseArtists
 import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseTracks
 
 class ApiHelper(private val apiService: ApiService) {
@@ -8,37 +10,67 @@ class ApiHelper(private val apiService: ApiService) {
 
     suspend fun getUserPlaylists(authorization: String) = apiService.getUserPlaylists(authorization)
 
-    suspend fun getUserTopArtists(authorization: String) = apiService.getUserTopArtists(authorization)
+    suspend fun getUserTopArtists(authorization: String) =
+        apiService.getUserTopArtists(authorization)
 
-    suspend fun getPlaylistTracksWithGenres(authorization: String, playlistId: String): SpotifyComplexResponseTracks {
+    suspend fun getPlaylistTracksWithGenres(
+        authorization: String,
+        playlistId: String
+    ): SpotifyComplexResponseTracks {
 
         val tracks = apiService.getPlaylistTracks(authorization, playlistId)
-        var artistIds = ""
+        var artistIdsList: List<String> = emptyList()
 
-        tracks.items.forEachIndexed() { index,trackItem ->
-            trackItem.track.artists.forEach() { artist ->
-                if (index == 0) artistIds = artist.id
-                else artistIds = artistIds + ","+artist.id
-            }
-        }
-
-        val artistsFull = apiService.getSeveralArtists(authorization, artistIds)
-        val sampleGenres = arrayListOf("pop")
-
-        tracks.items.forEach() { trackItem ->
-            for(item in trackItem.track.artists)
-            trackItem.track.artists.forEach() { artist ->
-                val fullArtistGenres = artistsFull.artists.find{ it.id == artist.id}?.genres
-                if (fullArtistGenres != null) {
-                    if (fullArtistGenres.isNotEmpty()) artist.genres = fullArtistGenres
-                    else artist.genres = sampleGenres
+        try {
+            tracks.items.forEachIndexed() { index, trackItem ->
+                trackItem.track.artists.forEach() { artist ->
+                    artistIdsList = artistIdsList.plusElement(artist.id);
                 }
             }
+        } catch (e: Exception) {
+            Log.d("", "Exception while getting artists IDs from tracks$e")
+        }
+
+        val artistsFull = SpotifyComplexResponseArtists(emptyList())
+        val sampleGenres = arrayListOf("pop")
+
+        try {
+            for (i in 0..artistIdsList.count() step 50) {
+                var tillTheItem = i + 50;
+                if (tillTheItem > artistIdsList.count()) tillTheItem = artistIdsList.count()
+
+                artistsFull.artists = artistsFull.artists +
+                        (apiService.getSeveralArtists(
+                            authorization,
+                            artistIdsList.subList(i, tillTheItem).toString()
+                                .replace(" ", "")
+                                .replace("[", "")
+                                .replace("]", "")
+                        )).artists
+
+            }
+        } catch (e: Exception) {
+            Log.d("", "Exception while getting artists$e")
+        }
+
+        try {
+            tracks.items.forEach() { trackItem ->
+                trackItem.track.artists.forEach() { artist ->
+                    val fullArtistGenres = artistsFull.artists.find { it.id == artist.id }?.genres
+                    if (fullArtistGenres != null) {
+                        if (fullArtistGenres.isNotEmpty()) artist.genres = fullArtistGenres
+                        else artist.genres = sampleGenres
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            Log.d("", "Exception while assigning artist genres$e")
         }
 
         return tracks;
     }
 
-    suspend fun getSeveralArtists(authorization: String, ids: Array<String>) = apiService.getSeveralArtists(authorization, ids.toString())
+    suspend fun getSeveralArtists(authorization: String, ids: Array<String>) =
+        apiService.getSeveralArtists(authorization, ids.toString())
 
 }
