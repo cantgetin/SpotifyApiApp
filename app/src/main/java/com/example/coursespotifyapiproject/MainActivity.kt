@@ -58,22 +58,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val navListener =
-        BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            var selectedFragment: Fragment? = null
-            when (item.itemId) {
-                R.id.navigation_user -> selectedFragment = userFragment
-                R.id.navigation_list -> selectedFragment = playlistsFragment
-                R.id.navigation_analytics -> selectedFragment = analyticsFragment
-            }
-            if (selectedFragment != null) {
-                supportFragmentManager.beginTransaction().hide(activeFragment)
-                    .show(selectedFragment).commit()
-                activeFragment = selectedFragment
-            }
-            true
-        }
-
     private val userAuthenticated: () -> Unit = { ->
         userFragment = UserFragment()
         playlistsFragment = PlaylistsFragment()
@@ -90,6 +74,22 @@ class MainActivity : AppCompatActivity() {
         activeFragment = userFragment
 
     }
+
+    private val navListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            var selectedFragment: Fragment? = null
+            when (item.itemId) {
+                R.id.navigation_user -> selectedFragment = userFragment
+                R.id.navigation_list -> selectedFragment = playlistsFragment
+                R.id.navigation_analytics -> selectedFragment = analyticsFragment
+            }
+            if (selectedFragment != null) {
+                supportFragmentManager.beginTransaction().hide(activeFragment)
+                    .show(selectedFragment).commit()
+                activeFragment = selectedFragment
+            }
+            true
+        }
 
 }
 

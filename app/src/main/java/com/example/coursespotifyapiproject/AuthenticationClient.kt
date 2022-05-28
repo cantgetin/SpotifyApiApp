@@ -44,7 +44,7 @@ class AuthenticationClient(val userAuthenticated: () -> Unit) {
     private fun getApiTokenByAuthCode() {
 
         val authorizationParam = SpotifyConstants.CLIENT_ID + ":" + SpotifyConstants.CLIENT_SECRET
-        var authorizationParamEncoded: String
+        val authorizationParamEncoded: String
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             authorizationParamEncoded =
                 Base64.getEncoder().encodeToString(authorizationParam.toByteArray())
@@ -61,8 +61,8 @@ class AuthenticationClient(val userAuthenticated: () -> Unit) {
             SpotifyConstants.REDIRECT_URI
         )
 
-        var token: String? = ""
-        var refreshToken: String? = ""
+        var token: String?
+        var refreshToken: String?
 
         retrofitData.enqueue(object : Callback<AuthorizationResponse?> {
             override fun onResponse(
@@ -94,7 +94,7 @@ class AuthenticationClient(val userAuthenticated: () -> Unit) {
 
     private fun getApiTokenByRefreshToken() {
         val authorizationParam = SpotifyConstants.CLIENT_ID + ":" + SpotifyConstants.CLIENT_SECRET
-        var authorizationParamEncoded: String
+        val authorizationParamEncoded: String
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             authorizationParamEncoded =
                 Base64.getEncoder().encodeToString(authorizationParam.toByteArray())
@@ -110,7 +110,7 @@ class AuthenticationClient(val userAuthenticated: () -> Unit) {
             SpotifyConstants.REFRESHTOKEN,
         )
 
-        var token: String? = ""
+        var token: String?
 
         retrofitData.enqueue(object : Callback<AuthorizationResponse?> {
             override fun onResponse(

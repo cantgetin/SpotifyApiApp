@@ -49,8 +49,9 @@ class TracksFragment(private var playlistId: String) : Fragment() {
 
 
     val itemClickListener: (String) -> Unit = { id ->
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, TrackDetailsFragment(id)).commitNow()
+        requireActivity().supportFragmentManager.beginTransaction().hide(this)
+            .add(R.id.container, TrackDetailsFragment(id)).addToBackStack("tracks_to_track").commit()
+
     }
 
     fun setupUI() {

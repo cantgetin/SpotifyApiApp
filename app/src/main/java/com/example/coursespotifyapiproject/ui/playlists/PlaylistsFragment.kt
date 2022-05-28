@@ -15,7 +15,7 @@ import com.example.coursespotifyapiproject.ui.tracks.TracksFragment
 import com.example.coursespotifyapiproject.utils.Status
 
 
-class PlaylistsFragment() : Fragment() {
+class PlaylistsFragment : Fragment() {
 
     private lateinit var adapter: PlaylistsAdapter
     private lateinit var recyclerView: RecyclerView
@@ -28,7 +28,7 @@ class PlaylistsFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        var view = inflater.inflate(R.layout.playlists_fragment, container, false)
+        val view = inflater.inflate(R.layout.playlists_fragment, container, false)
 
         view.apply {
             recyclerView = view.findViewById(R.id.rView)
@@ -42,19 +42,20 @@ class PlaylistsFragment() : Fragment() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(PlaylistsViewModel::class.java)
+        viewModel = ViewModelProvider(this)[PlaylistsViewModel::class.java]
 
         setupUI()
         setupObservers()
     }
 
 
-    val itemClickListener: (String) -> Unit = { id ->
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, TracksFragment(id)).commitNow()
+    private val itemClickListener: (String) -> Unit = { id ->
+        requireActivity().supportFragmentManager.beginTransaction().hide(this)
+            .add(R.id.container, TracksFragment(id)).addToBackStack("playlist_to_tracks").commit()
     }
 
-    fun setupUI() {
+
+    private fun setupUI() {
         adapter = PlaylistsAdapter(arrayListOf(), itemClickListener)
         recyclerView.adapter = adapter
     }
