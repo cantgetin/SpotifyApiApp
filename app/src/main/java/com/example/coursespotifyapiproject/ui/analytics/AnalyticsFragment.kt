@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -88,5 +89,14 @@ class AnalyticsFragment() : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) (activity as AppCompatActivity?)!!.supportActionBar?.title = this.toString()
+    }
+
+    override fun toString(): String {
+        return "Analytics"
     }
 }

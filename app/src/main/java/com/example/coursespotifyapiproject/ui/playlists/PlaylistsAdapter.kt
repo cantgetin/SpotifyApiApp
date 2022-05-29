@@ -12,7 +12,7 @@ import com.example.coursespotifyapiproject.data.model.Playlist
 
 class PlaylistsAdapter(
     private val playlists: ArrayList<Playlist>,
-    val itemClickListener: (String) -> Unit
+    private val itemClickListener: (String, String) -> Unit
 ) : RecyclerView.Adapter<PlaylistsAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -29,7 +29,7 @@ class PlaylistsAdapter(
             }
         }
 
-        fun onClick(itemClickListener: (String) -> Unit) {}
+        fun onClick(itemClickListener: (String, String) -> Unit) {}
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistsAdapter.DataViewHolder {
@@ -44,7 +44,7 @@ class PlaylistsAdapter(
     override fun onBindViewHolder(holder: PlaylistsAdapter.DataViewHolder, position: Int) {
         holder.bind(playlists[position])
         holder.itemView.setOnClickListener { view ->
-            itemClickListener.invoke(playlists[position].id)
+            itemClickListener.invoke(playlists[position].id, playlists[position].name)
         }
     }
 

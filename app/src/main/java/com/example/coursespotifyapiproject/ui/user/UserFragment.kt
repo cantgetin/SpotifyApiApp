@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -101,6 +102,15 @@ class UserFragment() : Fragment() {
         }
 
 
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) (activity as AppCompatActivity?)!!.supportActionBar?.title = this.toString()
+    }
+
+    override fun toString(): String {
+        return "User Info"
     }
 
 }

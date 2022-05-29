@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,7 +15,7 @@ import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.utils.Status
 
 
-class TracksFragment(private var playlistId: String) : Fragment() {
+class TracksFragment(private var playlistId: String, private val playlistName: String) : Fragment() {
 
     private lateinit var adapter: TracksAdapter
     private lateinit var recyclerView: RecyclerView
@@ -34,6 +35,9 @@ class TracksFragment(private var playlistId: String) : Fragment() {
             progressBar = view.findViewById(R.id.progressBar)
             recyclerView.layoutManager = LinearLayoutManager(activity)
         }
+
+        var lol: String = (activity as AppCompatActivity?)!!.supportActionBar?.title as String
+        (activity as AppCompatActivity?)!!.supportActionBar?.title = lol.plus(" > ").plus(playlistName)
 
         return view
 

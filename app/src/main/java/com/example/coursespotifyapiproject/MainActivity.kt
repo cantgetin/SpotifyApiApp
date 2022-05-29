@@ -72,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction().add(R.id.container, userFragment, "1").commit()
 
         activeFragment = userFragment
+        supportActionBar!!.title = userFragment.toString()
 
     }
 

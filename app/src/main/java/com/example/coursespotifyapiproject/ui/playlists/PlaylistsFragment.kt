@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.ui.tracks.TracksFragment
 import com.example.coursespotifyapiproject.utils.Status
+import androidx.appcompat.app.AppCompatActivity
 
 
 class PlaylistsFragment : Fragment() {
@@ -49,9 +50,9 @@ class PlaylistsFragment : Fragment() {
     }
 
 
-    private val itemClickListener: (String) -> Unit = { id ->
+    private val itemClickListener: (String, String) -> Unit = { id,name ->
         requireActivity().supportFragmentManager.beginTransaction().hide(this)
-            .add(R.id.container, TracksFragment(id)).addToBackStack("playlist_to_tracks").commit()
+            .add(R.id.container, TracksFragment(id,name)).addToBackStack("playlist_to_tracks").commit()
     }
 
 
@@ -81,5 +82,14 @@ class PlaylistsFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) (activity as AppCompatActivity?)!!.supportActionBar?.title = this.toString()
+    }
+
+        override fun toString(): String {
+        return "Playlists"
     }
 }
