@@ -38,16 +38,17 @@
         app:layout_constraintTop_toBottomOf="@+id/trackTitle"
         tools:text="Lana Del Rey" />
 
-    <ImageView
-        android:background="@drawable/genre_image_rounded_corners"
-        android:color="#1DB954"
+
+    <com.google.android.material.imageview.ShapeableImageView
+        app:shapeAppearanceOverlay="@style/roundedImageView"
         android:id="@+id/genreColor"
-        android:layout_width="15dp"
-        android:layout_height="15dp"
         app:layout_constraintStart_toStartOf="@id/trackArtists"
         app:layout_constraintTop_toBottomOf="@id/trackArtists"
         app:layout_constraintBottom_toBottomOf="@id/trackGenres"
-        tools:ignore="MissingConstraints" />
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:radius="10dp"
+        android:background="@color/purple_500"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_marginStart="6dp"
