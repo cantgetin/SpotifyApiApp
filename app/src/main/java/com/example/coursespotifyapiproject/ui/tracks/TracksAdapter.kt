@@ -16,7 +16,7 @@ import kotlin.collections.ArrayList
 
 class TracksAdapter(
     private val tracks: ArrayList<Track>,
-    private val itemClickListener: (String) -> Unit
+    private val itemClickListener: (Track) -> Unit
 ) : RecyclerView.Adapter<TracksAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -48,7 +48,7 @@ class TracksAdapter(
             return String.format("#%06x", 0xFFFFFF and inputString.hashCode())
         }
 
-        fun onClick(itemClickListener: (String) -> Unit) {}
+        fun onClick(itemClickListener: (Track) -> Unit) {}
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksAdapter.DataViewHolder {
@@ -63,7 +63,7 @@ class TracksAdapter(
     override fun onBindViewHolder(holder: TracksAdapter.DataViewHolder, position: Int) {
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener { view ->
-            itemClickListener.invoke(tracks[position].id)
+            itemClickListener.invoke(tracks[position])
         }
     }
 

@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coursespotifyapiproject.R
+import com.example.coursespotifyapiproject.data.model.Track
 import com.example.coursespotifyapiproject.utils.Status
 
 
@@ -52,9 +53,9 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
     }
 
 
-    val itemClickListener: (String) -> Unit = { id ->
+    val itemClickListener: (Track) -> Unit = { track ->
         requireActivity().supportFragmentManager.beginTransaction().hide(this)
-            .add(R.id.container, TrackDetailsFragment(id)).addToBackStack("tracks_to_track").commit()
+            .add(R.id.container, TrackDetailsFragment(track)).addToBackStack("tracks_to_track").commit()
 
     }
 

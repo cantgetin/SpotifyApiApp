@@ -1,6 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:background="#181818"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".ui.tracks.TrackDetailsFragment">
+
+    <ImageView
+        android:id="@+id/trackImage"
+        android:layout_height="200dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:src="@tools:sample/avatars"
+        android:layout_width="200dp"/>
+
+    <TextView
+        android:id="@+id/trackTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        tools:text="Summertime Sadness"
+        android:textColor="#FFFFFF"
+        android:textSize="25dp"
+        app:layout_constraintRight_toRightOf="@id/trackImage"
+        app:layout_constraintTop_toBottomOf="@+id/trackImage"
+        app:layout_constraintLeft_toLeftOf="@id/trackImage"
+        tools:ignore="MissingConstraints"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/trackArtists"
+        app:layout_constraintRight_toRightOf="@id/trackImage"
+        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        tools:text="Lana Del Rey"
+        android:textColor="#a6a6a6"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@+id/trackTitle"
+        app:layout_constraintLeft_toLeftOf="@id/trackImage"
+        tools:ignore="MissingConstraints"
+        android:gravity="center"/>
+
+
+    <TextView
+        android:id="@+id/genresText"
+        app:layout_constraintRight_toRightOf="@id/trackImage"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Art pop, genre1, genre2"
+        android:textSize="25sp"
+        android:textColor="#FFFFFF"
+        app:layout_constraintTop_toBottomOf="@+id/trackArtists"
+        app:layout_constraintLeft_toLeftOf="@id/trackImage"
+        tools:ignore="MissingConstraints"/>
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
