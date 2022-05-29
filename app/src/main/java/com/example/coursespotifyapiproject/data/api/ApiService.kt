@@ -1,10 +1,8 @@
 package com.example.coursespotifyapiproject.data.api
 
 import com.example.coursespotifyapiproject.data.model.*
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.Path
-import retrofit2.http.Query
+import retrofit2.Call
+import retrofit2.http.*
 
 
 interface ApiService {
@@ -30,4 +28,22 @@ interface ApiService {
         @Query("ids", encoded = true) ids: String
     ): SpotifyComplexResponseArtists
 
+    @FormUrlEncoded
+    @POST("https://accounts.spotify.com/api/token")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    fun getApiTokenByAuthCode(
+        @Header("Authorization") authorization: String?,
+        @Field("grant_type") grantType: String?,
+        @Field("code") code: String?,
+        @Field("redirect_uri") redirectUri: String?
+    ): Call<AuthorizationResponse>
+
+    @FormUrlEncoded
+    @POST("https://accounts.spotify.com/api/token")
+    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
+    fun getApiTokenByRefreshToken(
+        @Header("Authorization") authorization: String?,
+        @Field("grant_type") grantType: String?,
+        @Field("refresh_token") refreshToken: String?,
+    ): Call<AuthorizationResponse>
 }

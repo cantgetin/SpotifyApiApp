@@ -6,8 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
-import com.example.coursespotifyapiproject.data.api2.ApiHelper2
-import com.example.coursespotifyapiproject.data.api2.RetrofitBuilder2
 import com.example.coursespotifyapiproject.data.model.AuthorizationResponse
 import com.example.coursespotifyapiproject.ui.auth.AuthFragment
 import com.example.spotifysigninexample.SpotifyConstants
@@ -17,6 +15,8 @@ import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
 import androidx.fragment.app.FragmentActivity
+import com.example.coursespotifyapiproject.data.api.ApiHelper
+import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
 
 
 class AuthenticationClient(val userAuthenticated: () -> Unit) {
@@ -24,7 +24,7 @@ class AuthenticationClient(val userAuthenticated: () -> Unit) {
     @Inject
     lateinit var pref: SharedPreferences
 
-    private val apiHelper2 = ApiHelper2(RetrofitBuilder2.apiService)
+    private val apiHelper = ApiHelper(RetrofitBuilder.apiService)
     lateinit var activity: Activity
 
     fun connect(savedInstanceState: Bundle?, activity: Activity) {
@@ -54,7 +54,7 @@ class AuthenticationClient(val userAuthenticated: () -> Unit) {
 
         Log.d("fucking", SpotifyConstants.CODE)
 
-        val retrofitData = apiHelper2.getApiTokenByAuthCode(
+        val retrofitData = apiHelper.getApiTokenByAuthCode(
             "Basic $authorizationParamEncoded",
             "authorization_code",
             SpotifyConstants.CODE,
@@ -104,7 +104,7 @@ class AuthenticationClient(val userAuthenticated: () -> Unit) {
 
         Log.d("fucking", SpotifyConstants.CODE)
 
-        val retrofitData = apiHelper2.getApiTokenByRefreshToken(
+        val retrofitData = apiHelper.getApiTokenByRefreshToken(
             "Basic $authorizationParamEncoded",
             "refresh_token",
             SpotifyConstants.REFRESHTOKEN,

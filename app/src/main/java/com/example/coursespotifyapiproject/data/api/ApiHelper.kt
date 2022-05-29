@@ -70,7 +70,17 @@ class ApiHelper(private val apiService: ApiService) {
         return tracks;
     }
 
-    suspend fun getSeveralArtists(authorization: String, ids: Array<String>) =
-        apiService.getSeveralArtists(authorization, ids.toString())
+    fun getApiTokenByAuthCode(
+        authorization: String,
+        grantType: String,
+        code: String,
+        redirectUri: String
+    ) = apiService.getApiTokenByAuthCode(authorization, grantType, code, redirectUri)
+
+    fun getApiTokenByRefreshToken(
+        authorization: String,
+        grantType: String,
+        refreshToken: String
+    ) = apiService.getApiTokenByRefreshToken(authorization, grantType, refreshToken)
 
 }
