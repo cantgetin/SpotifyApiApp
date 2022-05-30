@@ -6,7 +6,7 @@
     android:background="#181818"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.tracks.TrackDetailsFragment">
+    tools:context=".ui.track.TrackDetailsFragment">
 
     <ImageView
         android:id="@+id/trackImage"
@@ -46,18 +46,19 @@
         android:gravity="center"/>
 
 
-    <TextView
-        android:id="@+id/genresText"
-        app:layout_constraintRight_toRightOf="@id/trackImage"
-        android:layout_height="wrap_content"
-        android:layout_width="wrap_content"
-        tools:text="Art pop, genre1, genre2"
-        android:textSize="25sp"
-        android:textColor="#FFFFFF"
-        app:layout_constraintTop_toBottomOf="@+id/trackArtists"
-        app:layout_constraintLeft_toLeftOf="@id/trackImage"
-        tools:ignore="MissingConstraints"/>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rView"
+        android:layout_width="match_parent"
+        android:layout_marginStart="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="30dp"
+        android:layout_height="250dp"
+        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintLeft_toLeftOf="@id/trackImage"
+        app:layout_constraintRight_toRightOf="@id/trackImage"
+        app:layout_constraintTop_toBottomOf="@+id/trackArtists" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

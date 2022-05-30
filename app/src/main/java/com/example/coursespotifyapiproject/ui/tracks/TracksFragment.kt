@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.data.model.Track
+import com.example.coursespotifyapiproject.ui.track.TrackDetailsFragment
 import com.example.coursespotifyapiproject.utils.Status
 
 
