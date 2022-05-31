@@ -21,6 +21,7 @@
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="0dp"
         android:layout_height="25dp"
+        android:textColor="#FFFFFF"
         android:layout_marginStart="8dp"
         android:layout_marginTop="4dp"
         app:layout_constraintStart_toEndOf="@+id/trackImage"
@@ -32,6 +33,7 @@
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/trackArtists"
         android:layout_width="0dp"
+        android:textColor="#b5b5b5"
         android:layout_height="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/trackTitle"
@@ -47,13 +49,13 @@
         app:layout_constraintBottom_toBottomOf="@id/trackGenres"
         android:layout_width="15dp"
         android:layout_height="15dp"
-        android:radius="10dp"
-        android:background="@color/purple_500"/>
+        android:radius="10dp"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:layout_marginStart="6dp"
         android:id="@+id/trackGenres"
         android:layout_width="0dp"
+        android:textColor="#b5b5b5"
         android:layout_height="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/genreColor"

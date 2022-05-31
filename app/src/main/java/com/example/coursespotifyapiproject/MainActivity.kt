@@ -31,6 +31,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         (applicationContext as App).appComponent.inject(this)
+        supportActionBar!!.elevation = 0f
 
         if (intent.data != null) handleDataFromIntent(intent.data!!)
 
