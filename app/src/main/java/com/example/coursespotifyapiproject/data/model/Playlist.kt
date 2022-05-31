@@ -8,6 +8,8 @@ data class Playlist(
     @SerializedName("images")
     val images: List<Image>,
     @SerializedName("id")
-    val id: String
+    val id: String,
+    @SerializedName("tracks")
+    val tracks: TracksMinimized
 
 )

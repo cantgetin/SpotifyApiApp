@@ -11,9 +11,7 @@ import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.data.model.Artist
 
 class ArtistsAdapter(
-    private val artists: ArrayList<Artist>,
-    val itemClickListener: (View, String) -> Unit
-) : RecyclerView.Adapter<ArtistsAdapter.DataViewHolder>() {
+    private var artists: ArrayList<Artist>) : RecyclerView.Adapter<ArtistsAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -30,8 +28,7 @@ class ArtistsAdapter(
             }
         }
 
-
-        fun onClick(itemClickListener: (View, String) -> Unit) {}
+        fun onClick(itemClickListener: () -> Unit) {}
     }
 
     override fun onCreateViewHolder(
@@ -42,22 +39,16 @@ class ArtistsAdapter(
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.artist_item_layout, parent, false)
         val vh = DataViewHolder(view)
-        vh.onClick(itemClickListener)
+        //vh.onClick(itemClickListener)
         return vh
     }
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(artists[position])
-        holder.itemView.setOnClickListener { view ->
-            itemClickListener.invoke(view, artists[position].id)
-        }
     }
 
     fun addArtists(artists: List<Artist>) {
-        this.artists.apply {
-            clear()
-            addAll(artists)
-        }
+        this.artists = artists as ArrayList<Artist>
     }
 
     override fun getItemCount(): Int = this.artists.size

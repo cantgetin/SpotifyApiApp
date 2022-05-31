@@ -72,7 +72,7 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
                     recyclerView.visibility = View.VISIBLE
                     progressBar.visibility = View.GONE
                     resource.data?.let { response ->
-                        adapter.addTracks(response.items)
+                        adapter.addTracks(response)
                     }
                 }
                 Status.ERROR -> {

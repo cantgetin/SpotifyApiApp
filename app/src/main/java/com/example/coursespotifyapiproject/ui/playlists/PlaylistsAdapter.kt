@@ -24,7 +24,7 @@ class PlaylistsAdapter(
                 val playlistImage = this.findViewById<ImageView>(R.id.playlistImage)
 
                 playlistName.text = playlist.name
-                playlistId.text = playlist.id
+                playlistId.text = playlist.tracks.total.toString() + " tracks"
                 this.let { Glide.with(it).load(playlist.images[0].url).into(playlistImage) };
             }
         }

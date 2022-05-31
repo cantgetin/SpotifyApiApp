@@ -37,7 +37,7 @@ class TrackDetailsFragment(val track: Track) : Fragment() {
 
         track.artists.forEachIndexed() { index, artist ->
             if (index == 0) trackArtists.append(artist.name)
-            else trackArtists.append(" ,$artist.name")
+            else trackArtists.append(" ,${artist.name}")
         }
 
         val genres = mutableListOf<String>()

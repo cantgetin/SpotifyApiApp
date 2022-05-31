@@ -3,6 +3,7 @@ package com.example.coursespotifyapiproject.data.api
 import android.util.Log
 import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseArtists
 import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseTracks
+import com.example.coursespotifyapiproject.data.model.Track
 
 class ApiHelper(private val apiService: ApiService) {
 
@@ -16,9 +17,9 @@ class ApiHelper(private val apiService: ApiService) {
     suspend fun getPlaylistTracksWithGenres(
         authorization: String,
         playlistId: String
-    ): SpotifyComplexResponseTracks {
+    ): MutableList<Track> {
 
-        val tracks = apiService.getPlaylistTracks(authorization, playlistId)
+        var tracks = apiService.getPlaylistTracks(authorization, playlistId)
         var artistIdsList: List<String> = emptyList()
 
         try {
@@ -53,21 +54,31 @@ class ApiHelper(private val apiService: ApiService) {
             Log.d("", "Exception while getting artists$e")
         }
 
+
+        var lol = mutableListOf<Track>()
+        tracks.items.forEach{
+            lol.add(it.track)
+        }
+
+        lol = lol.filterNotNull() as MutableList<Track>
+
         try {
-            tracks.items.forEach() { trackItem ->
-                trackItem.track.artists.forEach() { artist ->
+            lol.forEach() { track ->
+                track.artists.forEach() { artist ->
                     val fullArtistGenres = artistsFull.artists.find { it.id == artist.id }?.genres
+
                     if (fullArtistGenres != null) {
                         if (fullArtistGenres.isNotEmpty()) artist.genres = fullArtistGenres
                         else artist.genres = sampleGenres
                     }
+                    else artist.genres = sampleGenres
                 }
             }
         } catch (e: Exception) {
             Log.d("", "Exception while assigning artist genres$e")
         }
 
-        return tracks;
+        return  lol
     }
 
     fun getApiTokenByAuthCode(

@@ -33,22 +33,20 @@ class UserFragment() : Fragment() {
         var view =  inflater.inflate(R.layout.user_fragment, container, false)
 
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
+
+        recyclerView = view.findViewById(R.id.topArtistRecyclerView)
+        artistsAdapter = ArtistsAdapter(arrayListOf())
+        recyclerView.adapter = artistsAdapter
+        recyclerView.layoutManager = LinearLayoutManager(activity)
+
+
         setupUI()
 
-        view.apply {
-
-            recyclerView = view.findViewById(R.id.topArtistRecyclerView)
-            artistsAdapter = ArtistsAdapter(arrayListOf(), itemClickListener)
-            recyclerView.adapter = artistsAdapter
-            recyclerView.layoutManager = LinearLayoutManager(activity)
-        }
         return view
     }
 
-    val itemClickListener: (View, String) -> Unit = { view, id ->
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, PlaylistDetailsFragment(id)).commitNow()
-    }
+    val itemClickListener: () -> Unit = {}
 
     private fun setupUI() {
 
@@ -57,6 +55,7 @@ class UserFragment() : Fragment() {
                 Status.SUCCESS -> {
                     resource.data?.let { artist ->
                         artistsAdapter.addArtists(artist.items.take(5))
+                        artistsAdapter.notifyDataSetChanged()
                         //progressBar.visibility = View.GONE
                     }
                 }
@@ -89,6 +88,7 @@ class UserFragment() : Fragment() {
                         userProduct.visibility = View.VISIBLE
                         userId.visibility = View.VISIBLE
                         userAvatar.visibility = View.VISIBLE
+                        topArtistsText.visibility = View.VISIBLE
                     }
                 }
                 Status.ERROR -> {
@@ -100,6 +100,7 @@ class UserFragment() : Fragment() {
                 }
             }
         }
+
 
 
     }

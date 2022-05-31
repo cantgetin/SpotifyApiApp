@@ -15,7 +15,7 @@ import com.google.android.material.imageview.ShapeableImageView
 import kotlin.collections.ArrayList
 
 class TracksAdapter(
-    private val tracks: ArrayList<Track>,
+    private var tracks: ArrayList<Track>,
     private val itemClickListener: (Track) -> Unit
 ) : RecyclerView.Adapter<TracksAdapter.DataViewHolder>() {
 
@@ -61,17 +61,23 @@ class TracksAdapter(
     }
 
     override fun onBindViewHolder(holder: TracksAdapter.DataViewHolder, position: Int) {
+        if (position>85)
+        {
+            val track  = tracks[88]
+            val l = track.artists
+        }
         holder.bind(tracks[position])
         holder.itemView.setOnClickListener { view ->
             itemClickListener.invoke(tracks[position])
         }
     }
 
-    fun addTracks(tracks: List<TrackItem>) {
-        tracks.forEach()
-        {
-            this.tracks.add(it.track)
-        }
+    fun addTracks(tracks: List<Track>) {
+        this.tracks = tracks as ArrayList<Track>
+    }
+
+    fun addTrack(track: Track) {
+        this.tracks += track
     }
 
     override fun getItemCount(): Int = tracks.size
