@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.data.model.Track
-import com.example.coursespotifyapiproject.data.model.TrackItem
 import com.google.android.material.imageview.ShapeableImageView
 import kotlin.collections.ArrayList
 
@@ -33,51 +32,38 @@ class TracksAdapter(
                 trackTitle.text = track.title
 
                 track.artists.forEachIndexed { index, artist ->
-                    if (index == 0) trackArtists.text = artist.name;
-                    else trackArtists.text = String.format(trackArtists.text.toString()+", "+artist.name);
+                    if (index == 0) trackArtists.text = artist.name
+                    else trackArtists.text = String.format(trackArtists.text.toString()+", "+artist.name)
                 }
-                this.let { Glide.with(it).load(track.album.images[0].url).into(trackImage) };
+                this.let { Glide.with(it).load(track.album.images[0].url).into(trackImage) }
 
-                var color = Color.parseColor(getColorCode(track.artists[0].genres[0]));
+                val color = Color.parseColor(getColorCode(track.artists[0].genres[0]))
 
-                genreColor.setBackgroundColor(color);
+                genreColor.setBackgroundColor(color)
             }
         }
 
         private fun getColorCode(inputString: String): String {
             return String.format("#%06x", 0xFFFFFF and inputString.hashCode())
         }
-
-        fun onClick(itemClickListener: (Track) -> Unit) {}
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TracksAdapter.DataViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
 
-        var view = LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.track_item_layout, parent, false)
-        val vh = DataViewHolder(view);
-        vh.onClick(itemClickListener)
-        return vh
+        return DataViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: TracksAdapter.DataViewHolder, position: Int) {
-        if (position>85)
-        {
-            val track  = tracks[88]
-            val l = track.artists
-        }
+    override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(tracks[position])
-        holder.itemView.setOnClickListener { view ->
+        holder.itemView.setOnClickListener {
             itemClickListener.invoke(tracks[position])
         }
     }
 
     fun addTracks(tracks: List<Track>) {
         this.tracks = tracks as ArrayList<Track>
-    }
-
-    fun addTrack(track: Track) {
-        this.tracks += track
     }
 
     override fun getItemCount(): Int = tracks.size

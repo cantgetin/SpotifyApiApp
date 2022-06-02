@@ -9,9 +9,9 @@ object RetrofitBuilder {
 
     private const val BASE_URL = "https://api.spotify.com/v1/"
 
-    val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY);
+    private val interceptor = HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY)
 
-    val okHttpClient = OkHttpClient.Builder()
+    private val okHttpClient: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(interceptor).build()
 
     private fun getRetrofit(): Retrofit = Retrofit.Builder()

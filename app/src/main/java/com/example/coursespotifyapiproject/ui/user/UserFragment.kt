@@ -16,7 +16,7 @@ import com.example.coursespotifyapiproject.utils.Status
 import kotlinx.android.synthetic.main.user_fragment.*
 
 
-class UserFragment() : Fragment() {
+class UserFragment : Fragment() {
 
     private lateinit var viewModel: UserViewModel
     private lateinit var artistsAdapter: ArtistsAdapter
@@ -28,9 +28,9 @@ class UserFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        var view =  inflater.inflate(R.layout.user_fragment, container, false)
+        val view =  inflater.inflate(R.layout.user_fragment, container, false)
 
-        viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+        viewModel = ViewModelProvider(this)[UserViewModel::class.java]
 
 
         recyclerView = view.findViewById(R.id.topArtistRecyclerView)
@@ -44,8 +44,6 @@ class UserFragment() : Fragment() {
         return view
     }
 
-    val itemClickListener: () -> Unit = {}
-
     private fun setupUI() {
 
         viewModel.getUserTopArtists().observe(viewLifecycleOwner) { resource ->
@@ -54,7 +52,6 @@ class UserFragment() : Fragment() {
                     resource.data?.let { artist ->
                         artistsAdapter.addArtists(artist.items.take(15))
                         artistsAdapter.notifyDataSetChanged()
-                        //progressBar.visibility = View.GONE
                     }
                 }
                 Status.ERROR -> {
@@ -77,7 +74,7 @@ class UserFragment() : Fragment() {
                         userCountry.text = ("Country: " + user.country)
                         userProduct.text = ("Product: " + user.product)
                         userId.text = ("User id: " + user.id)
-                        view?.let { Glide.with(it).load(user.images[0].url).into(userAvatar) };
+                        view?.let { Glide.with(it).load(user.images[0].url).into(userAvatar) }
 
                         progressBar.visibility = View.GONE
 

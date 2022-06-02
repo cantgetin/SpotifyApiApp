@@ -30,7 +30,7 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
         savedInstanceState: Bundle?
     ): View {
 
-        var view = inflater.inflate(R.layout.tracks_fragment, container, false)
+        val view = inflater.inflate(R.layout.tracks_fragment, container, false)
 
         view.apply {
             recyclerView = view.findViewById(R.id.rView)
@@ -38,16 +38,16 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
             recyclerView.layoutManager = LinearLayoutManager(activity)
         }
 
-        var lol: String = (activity as AppCompatActivity?)!!.supportActionBar?.title as String
+        val lol: String = (activity as AppCompatActivity?)!!.supportActionBar?.title as String
         (activity as AppCompatActivity?)!!.supportActionBar?.title = lol.plus(" > ").plus(playlistName)
 
         return view
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(TracksViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[TracksViewModel::class.java]
 
         setupUI()
         setupObservers()
@@ -60,7 +60,7 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
 
     }
 
-    fun setupUI() {
+    private fun setupUI() {
         adapter = TracksAdapter(arrayListOf(), itemClickListener)
         recyclerView.adapter = adapter
     }

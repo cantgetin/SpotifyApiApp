@@ -12,7 +12,7 @@ import com.example.coursespotifyapiproject.SpotifyConstants
 import kotlinx.android.synthetic.main.auth_fragment.view.*
 
 
-class AuthFragment() : Fragment() {
+class AuthFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

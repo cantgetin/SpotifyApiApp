@@ -37,22 +37,19 @@ class AnalyticsAdapter(
             }
         }
 
-        fun onClick(itemClickListener: (String) -> Unit) {}
     }
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): AnalyticsAdapter.DataViewHolder {
+    ): DataViewHolder {
 
-        var view = LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.genre_item_layout, parent, false)
-        val vh = DataViewHolder(view);
-        vh.onClick(itemClickListener)
-        return vh
+        return DataViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: AnalyticsAdapter.DataViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(genres[position])
         holder.itemView.setOnClickListener {}
     }

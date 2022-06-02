@@ -27,8 +27,6 @@ class ArtistsAdapter(
                 this.let { Glide.with(it).load(artist.images[0].url).into(artistImage) }
             }
         }
-
-        fun onClick(itemClickListener: () -> Unit) {}
     }
 
     override fun onCreateViewHolder(
@@ -38,9 +36,7 @@ class ArtistsAdapter(
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.artist_item_layout, parent, false)
-        val vh = DataViewHolder(view)
-        //vh.onClick(itemClickListener)
-        return vh
+        return DataViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {

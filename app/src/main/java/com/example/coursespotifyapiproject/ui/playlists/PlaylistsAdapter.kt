@@ -24,26 +24,27 @@ class PlaylistsAdapter(
                 val playlistImage = this.findViewById<ImageView>(R.id.playlistImage)
 
                 playlistName.text = playlist.name
-                playlistId.text = playlist.tracks.total.toString() + " tracks"
-                this.let { Glide.with(it).load(playlist.images[0].url).into(playlistImage) };
+                val tracksTotalText = playlist.tracks.total.toString() + " tracks"
+                playlistId.text = tracksTotalText
+                this.let { Glide.with(it).load(playlist.images[0].url).into(playlistImage) }
             }
         }
 
-        fun onClick(itemClickListener: (String, String) -> Unit) {}
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PlaylistsAdapter.DataViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): DataViewHolder {
 
-        var view = LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.playlist_item_layout, parent, false)
-        val vh = DataViewHolder(view);
-        vh.onClick(itemClickListener)
-        return vh
+        return DataViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: PlaylistsAdapter.DataViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(playlists[position])
-        holder.itemView.setOnClickListener { view ->
+        holder.itemView.setOnClickListener {
             itemClickListener.invoke(playlists[position].id, playlists[position].name)
         }
     }

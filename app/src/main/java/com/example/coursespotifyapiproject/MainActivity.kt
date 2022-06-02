@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         if (intent.data != null) handleDataFromIntent(intent.data!!)
 
         setContentView(R.layout.main_activity)
-        var bottomNav: BottomNavigationView = findViewById(R.id.navigation_bar)
+        val bottomNav: BottomNavigationView = findViewById(R.id.navigation_bar)
         bottomNav.setOnNavigationItemSelectedListener(navListener)
         navigation_bar.visibility = View.GONE
 
@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val userAuthenticated: () -> Unit = { ->
+    private val userAuthenticated: () -> Unit = {
         userFragment = UserFragment()
         playlistsFragment = PlaylistsFragment()
         analyticsFragment = AnalyticsFragment()

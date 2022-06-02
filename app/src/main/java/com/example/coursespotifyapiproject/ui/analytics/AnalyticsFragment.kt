@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.utils.Status
 
-class AnalyticsFragment() : Fragment() {
+class AnalyticsFragment : Fragment() {
 
 
     private lateinit var adapter: AnalyticsAdapter
@@ -28,7 +28,7 @@ class AnalyticsFragment() : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        var view = inflater.inflate(R.layout.analytics_fragment, container, false)
+        val view = inflater.inflate(R.layout.analytics_fragment, container, false)
 
         view.apply {
             recyclerView = view.findViewById(R.id.analyticsView)
@@ -40,21 +40,18 @@ class AnalyticsFragment() : Fragment() {
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(AnalyticsViewModel::class.java)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[AnalyticsViewModel::class.java]
 
         setupUI()
         setupObservers()
     }
 
 
-    val itemClickListener: (String) -> Unit = { id ->
-        /*requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.container, PlaylistDetailsFragment(id)).commitNow()*/
-    }
+    val itemClickListener: (String) -> Unit = { }
 
-    fun setupUI() {
+    private fun setupUI() {
         adapter = AnalyticsAdapter(arrayListOf(), itemClickListener)
         recyclerView.adapter = adapter
     }
@@ -67,15 +64,15 @@ class AnalyticsFragment() : Fragment() {
                     progressBar.visibility = View.GONE
                     resource.data?.let { response ->
 
-                        var jopa: ArrayList<String> = ArrayList<String>()
+                        val genres: ArrayList<String> = ArrayList()
 
-                        response.items.forEach{
-                            it.genres.forEach{
-                                jopa.add(it)
+                        response.items.forEach { artist ->
+                            artist.genres.forEach { genre ->
+                                genres.add(genre)
                             }
                         }
 
-                        adapter.addGenres(jopa)
+                        adapter.addGenres(genres)
                     }
                 }
                 Status.ERROR -> {

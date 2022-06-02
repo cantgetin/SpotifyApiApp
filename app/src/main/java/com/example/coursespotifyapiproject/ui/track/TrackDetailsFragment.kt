@@ -12,11 +12,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.data.model.Track
-import com.example.coursespotifyapiproject.ui.tracks.TrackDetailsAdapter
-import com.example.coursespotifyapiproject.ui.tracks.TracksAdapter
-import com.example.coursespotifyapiproject.ui.tracks.TracksViewModel
 
-class TrackDetailsFragment(val track: Track) : Fragment() {
+class TrackDetailsFragment(private val track: Track) : Fragment() {
 
     private lateinit var adapter: TrackDetailsAdapter
     private lateinit var recyclerView: RecyclerView
@@ -35,22 +32,22 @@ class TrackDetailsFragment(val track: Track) : Fragment() {
 
         trackTitle.text = track.title
 
-        track.artists.forEachIndexed() { index, artist ->
+        track.artists.forEachIndexed { index, artist ->
             if (index == 0) trackArtists.append(artist.name)
             else trackArtists.append(" ,${artist.name}")
         }
 
         val genres = mutableListOf<String>()
 
-        track.artists.forEach() { artist ->
-            artist.genres.forEachIndexed() { index, genre ->
+        track.artists.forEach { artist ->
+            artist.genres.forEach { genre ->
                 genres.add(genre)
             }
         }
 
 
 
-        this.let { Glide.with(it).load(track.album.images[0].url).into(trackImage) };
+        this.let { Glide.with(it).load(track.album.images[0].url).into(trackImage) }
 
 
         view.apply {
@@ -67,9 +64,6 @@ class TrackDetailsFragment(val track: Track) : Fragment() {
         return view
     }
 
-    val itemClickListener: (String) -> Unit = { track ->
-
-    }
-
+    val itemClickListener: (String) -> Unit = {}
 
 }

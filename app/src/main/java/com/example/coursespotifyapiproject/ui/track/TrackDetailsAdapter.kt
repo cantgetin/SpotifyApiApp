@@ -1,4 +1,4 @@
-package com.example.coursespotifyapiproject.ui.tracks
+package com.example.coursespotifyapiproject.ui.track
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -22,7 +22,7 @@ class TrackDetailsAdapter(
                 val trackTitle = this.findViewById<TextView>(R.id.genreName)
                 val genreColor = this.findViewById<ImageView>(R.id.genreImage)
 
-                var color = Color.parseColor(getColorCode(genre));
+                val color = Color.parseColor(getColorCode(genre))
                 genreColor.setBackgroundColor(color)
                 trackTitle.text = genre
             }
@@ -32,21 +32,18 @@ class TrackDetailsAdapter(
             return String.format("#%06x", 0xFFFFFF and inputString.hashCode())
         }
 
-        fun onClick(itemClickListener: (String) -> Unit) {}
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TrackDetailsAdapter.DataViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DataViewHolder {
 
-        var view = LayoutInflater.from(parent.context)
+        val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.genre_item_layout, parent, false)
-        val vh = DataViewHolder(view);
-        vh.onClick(itemClickListener)
-        return vh
+        return DataViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: TrackDetailsAdapter.DataViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(genres[position])
-        holder.itemView.setOnClickListener { view ->
+        holder.itemView.setOnClickListener {
             itemClickListener.invoke(genres[position])
         }
     }

@@ -73,8 +73,8 @@ class ApiHelper(private val apiService: ApiService) {
         result = result.filterNotNull() as MutableList<Track>
 
         try {
-            result.forEach() { track ->
-                track.artists.forEach() { artist ->
+            result.forEach { track ->
+                track.artists.forEach { artist ->
                     val fullArtistGenres = artistsFullInfo.artists.find { it.id == artist.id }?.genres
 
                     if (fullArtistGenres != null) {
