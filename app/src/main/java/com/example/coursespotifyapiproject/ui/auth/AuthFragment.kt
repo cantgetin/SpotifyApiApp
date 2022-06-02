@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.coursespotifyapiproject.R
-import com.example.spotifysigninexample.SpotifyConstants
+import com.example.coursespotifyapiproject.SpotifyConstants
 import kotlinx.android.synthetic.main.auth_fragment.view.*
 
 
@@ -31,7 +31,7 @@ class AuthFragment() : Fragment() {
                     "&response_type=" + SpotifyConstants.RESPONSE_TYPE +
                     "&redirect_uri=" + SpotifyConstants.REDIRECT_URI +
                     "&state=" + SpotifyConstants.STATE +
-                    "&scope=" +SpotifyConstants.SCOPES
+                    "&scope=" + SpotifyConstants.SCOPES
 
             val act = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 

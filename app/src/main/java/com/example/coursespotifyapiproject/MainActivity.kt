@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment
 import com.example.coursespotifyapiproject.ui.analytics.AnalyticsFragment
 import com.example.coursespotifyapiproject.ui.playlists.PlaylistsFragment
 import com.example.coursespotifyapiproject.ui.user.UserFragment
-import com.example.spotifysigninexample.SpotifyConstants
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {

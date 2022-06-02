@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coursespotifyapiproject.R
-import com.example.coursespotifyapiproject.data.model.Artist
-import com.example.coursespotifyapiproject.ui.playlists.PlaylistDetailsFragment
 import com.example.coursespotifyapiproject.utils.Status
 import kotlinx.android.synthetic.main.user_fragment.*
 
@@ -54,7 +52,7 @@ class UserFragment() : Fragment() {
             when (resource.status) {
                 Status.SUCCESS -> {
                     resource.data?.let { artist ->
-                        artistsAdapter.addArtists(artist.items.take(5))
+                        artistsAdapter.addArtists(artist.items.take(15))
                         artistsAdapter.notifyDataSetChanged()
                         //progressBar.visibility = View.GONE
                     }

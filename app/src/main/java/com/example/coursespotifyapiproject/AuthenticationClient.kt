@@ -8,7 +8,6 @@ import android.util.Log
 import android.widget.Toast
 import com.example.coursespotifyapiproject.data.model.AuthorizationResponse
 import com.example.coursespotifyapiproject.ui.auth.AuthFragment
-import com.example.spotifysigninexample.SpotifyConstants
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response

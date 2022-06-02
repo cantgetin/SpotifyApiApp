@@ -5,7 +5,7 @@ import androidx.lifecycle.liveData
 import com.example.coursespotifyapiproject.data.api.ApiHelper
 import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
 import com.example.coursespotifyapiproject.utils.Resource
-import com.example.spotifysigninexample.SpotifyConstants
+import com.example.coursespotifyapiproject.SpotifyConstants
 import kotlinx.coroutines.Dispatchers
 
 class UserViewModel : ViewModel() {
