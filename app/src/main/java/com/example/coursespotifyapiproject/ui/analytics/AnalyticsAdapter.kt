@@ -54,9 +54,7 @@ class AnalyticsAdapter(
 
     override fun onBindViewHolder(holder: AnalyticsAdapter.DataViewHolder, position: Int) {
         holder.bind(genres[position])
-        holder.itemView.setOnClickListener { view ->
-            //itemClickListener.invoke(genres[position].id)
-        }
+        holder.itemView.setOnClickListener {}
     }
 
     fun addGenres(genres: List<String>) {
