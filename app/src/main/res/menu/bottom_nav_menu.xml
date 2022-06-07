@@ -12,6 +12,11 @@
         android:title="Playlists" />
 
     <item
+        android:id="@+id/navigation_liked"
+        android:icon="@drawable/liked_songs_icon"
+        android:title="Liked" />
+
+    <item
         android:id="@+id/navigation_analytics"
         android:icon="@drawable/analytics_icon"
         android:title="Analytics" />

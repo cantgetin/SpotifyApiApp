@@ -28,6 +28,11 @@ interface ApiService {
         @Query("ids", encoded = true) ids: String
     ): SpotifyComplexResponseArtists
 
+    @GET("me/tracks")
+    suspend fun getUserLikedTracks(
+        @Header("Authorization") authorization: String?
+    ): SpotifyComplexResponseTracks
+
     @FormUrlEncoded
     @POST("https://accounts.spotify.com/api/token")
     @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")

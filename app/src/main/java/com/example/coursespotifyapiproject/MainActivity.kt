@@ -10,6 +10,7 @@ import kotlinx.android.synthetic.main.main_activity.*
 import androidx.fragment.app.Fragment
 import com.example.coursespotifyapiproject.ui.analytics.AnalyticsFragment
 import com.example.coursespotifyapiproject.ui.playlists.PlaylistsFragment
+import com.example.coursespotifyapiproject.ui.tracks.TracksFragment
 import com.example.coursespotifyapiproject.ui.user.UserFragment
 import javax.inject.Inject
 
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var userFragment: UserFragment
     private lateinit var playlistsFragment: PlaylistsFragment
     private lateinit var analyticsFragment: AnalyticsFragment
+    private lateinit var likedFragment: TracksFragment
 
     private lateinit var activeFragment: Fragment
 
@@ -62,9 +64,12 @@ class MainActivity : AppCompatActivity() {
         userFragment = UserFragment()
         playlistsFragment = PlaylistsFragment()
         analyticsFragment = AnalyticsFragment()
+        likedFragment = TracksFragment("","Liked Tracks", true)
 
         navigation_bar.visibility = View.VISIBLE
 
+        supportFragmentManager.beginTransaction().add(R.id.container, likedFragment, "4")
+            .hide(likedFragment).commit()
         supportFragmentManager.beginTransaction().add(R.id.container, analyticsFragment, "3")
             .hide(analyticsFragment).commit()
         supportFragmentManager.beginTransaction().add(R.id.container, playlistsFragment, "2")
@@ -83,6 +88,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_user -> selectedFragment = userFragment
                 R.id.navigation_list -> selectedFragment = playlistsFragment
                 R.id.navigation_analytics -> selectedFragment = analyticsFragment
+                R.id.navigation_liked -> selectedFragment = likedFragment
             }
             if (selectedFragment != null) {
                 supportFragmentManager.beginTransaction().hide(activeFragment)

@@ -17,7 +17,7 @@ import com.example.coursespotifyapiproject.ui.track.TrackDetailsFragment
 import com.example.coursespotifyapiproject.utils.Status
 
 
-class TracksFragment(private var playlistId: String, private val playlistName: String) : Fragment() {
+class TracksFragment(private var playlistId: String, private val playlistName: String, private val likedTracks: Boolean) : Fragment() {
 
     private lateinit var adapter: TracksAdapter
     private lateinit var recyclerView: RecyclerView
@@ -66,23 +66,48 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
     }
 
     private fun setupObservers() {
-        viewModel.getTracks(playlistId).observe(viewLifecycleOwner) { resource ->
-            when (resource.status) {
-                Status.SUCCESS -> {
-                    recyclerView.visibility = View.VISIBLE
-                    progressBar.visibility = View.GONE
-                    resource.data?.let { response ->
-                        adapter.addTracks(response)
+
+        if (likedTracks) {
+            viewModel.getLikedTracks().observe(viewLifecycleOwner) { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        recyclerView.visibility = View.VISIBLE
+                        progressBar.visibility = View.GONE
+                        resource.data?.let { response ->
+                            adapter.addTracks(response)
+                        }
+                    }
+                    Status.ERROR -> {
+                        recyclerView.visibility = View.VISIBLE
+                        progressBar.visibility = View.GONE
+                        Toast.makeText(context, resource.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+                        progressBar.visibility = View.VISIBLE
+                        recyclerView.visibility = View.GONE
                     }
                 }
-                Status.ERROR -> {
-                    recyclerView.visibility = View.VISIBLE
-                    progressBar.visibility = View.GONE
-                    Toast.makeText(context, resource.message, Toast.LENGTH_LONG).show()
-                }
-                Status.LOADING -> {
-                    progressBar.visibility = View.VISIBLE
-                    recyclerView.visibility = View.GONE
+            }
+        }
+        else {
+            viewModel.getTracks(playlistId).observe(viewLifecycleOwner) { resource ->
+                when (resource.status) {
+                    Status.SUCCESS -> {
+                        recyclerView.visibility = View.VISIBLE
+                        progressBar.visibility = View.GONE
+                        resource.data?.let { response ->
+                            adapter.addTracks(response)
+                        }
+                    }
+                    Status.ERROR -> {
+                        recyclerView.visibility = View.VISIBLE
+                        progressBar.visibility = View.GONE
+                        Toast.makeText(context, resource.message, Toast.LENGTH_LONG).show()
+                    }
+                    Status.LOADING -> {
+                        progressBar.visibility = View.VISIBLE
+                        recyclerView.visibility = View.GONE
+                    }
                 }
             }
         }

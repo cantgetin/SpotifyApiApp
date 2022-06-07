@@ -1,6 +1,7 @@
 package com.example.coursespotifyapiproject.data.api
 
 import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseArtists
+import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseTracks
 import com.example.coursespotifyapiproject.data.model.Track
 
 class ApiHelper(private val apiService: ApiService) {
@@ -27,10 +28,15 @@ class ApiHelper(private val apiService: ApiService) {
 
     suspend fun getPlaylistTracksWithGenres(
         authorization: String,
-        playlistId: String
+        playlistId: String,
+        likedTracks: Boolean
     ): MutableList<Track> {
 
-        val tracks = apiService.getPlaylistTracks(authorization, playlistId)
+        val tracks: SpotifyComplexResponseTracks =
+            if (likedTracks) apiService.getUserLikedTracks(authorization)
+        else apiService.getPlaylistTracks(authorization, playlistId)
+
+
         var artistIdsList: List<String> = emptyList()
 
         try {

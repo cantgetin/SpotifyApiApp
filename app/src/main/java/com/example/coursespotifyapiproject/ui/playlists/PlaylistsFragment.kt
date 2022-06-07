@@ -52,7 +52,7 @@ class PlaylistsFragment : Fragment() {
 
     private val itemClickListener: (String, String) -> Unit = { id,name ->
         requireActivity().supportFragmentManager.beginTransaction().hide(this)
-            .add(R.id.container, TracksFragment(id,name)).addToBackStack("playlist_to_tracks").commit()
+            .add(R.id.container, TracksFragment(id,name,false)).addToBackStack("playlist_to_tracks").commit()
     }
 
 
