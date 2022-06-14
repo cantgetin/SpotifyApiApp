@@ -38,8 +38,10 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
             recyclerView.layoutManager = LinearLayoutManager(activity)
         }
 
-        val lol: String = (activity as AppCompatActivity?)!!.supportActionBar?.title as String
-        (activity as AppCompatActivity?)!!.supportActionBar?.title = lol.plus(" > ").plus(playlistName)
+        if (!likedTracks) {
+            val lol: String = (activity as AppCompatActivity?)!!.supportActionBar?.title as String
+            (activity as AppCompatActivity?)!!.supportActionBar?.title = lol.plus(" > ").plus(playlistName)
+        }
 
         return view
 
@@ -110,6 +112,13 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
                     }
                 }
             }
+        }
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (likedTracks) {
+            if (!hidden) (activity as AppCompatActivity?)!!.supportActionBar?.title = "Liked tracks"
         }
     }
 }
