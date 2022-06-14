@@ -25,11 +25,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="15dp"
-        android:text="Hey, User"
+        tools:text="Hey, User"
         android:textColor="#FFFFFF"
-        android:textSize="35dp"
+        android:textSize="35sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
@@ -40,11 +39,11 @@
         tools:visibility="visible"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
         android:layout_marginTop="15dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/userName"
-        tools:ignore="MissingConstraints"
+        tools:ignore="MissingConstraints,contentDescription"
         tools:src="@tools:sample/avatars" />
 
     <TextView
@@ -57,13 +56,13 @@
         android:layout_marginEnd="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:text="Country: RU"
+        tools:text="Country: RU"
         android:textColor="#FFFFFF"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/userAvatar"
         app:layout_constraintTop_toTopOf="@id/userAvatar"
-        tools:ignore="MissingConstraints"
+        tools:ignore="MissingConstraints,RtlHardcoded"
         android:gravity="center_vertical|left"/>
 
     <TextView
@@ -76,13 +75,13 @@
         android:layout_marginEnd="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:text="Id: qpr76"
+        tools:text="Id: qpr76"
         android:textColor="#FFFFFF"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/userAvatar"
         app:layout_constraintTop_toBottomOf="@id/userCountry"
-        tools:ignore="MissingConstraints"
+        tools:ignore="MissingConstraints,RtlHardcoded"
         android:gravity="center_vertical|left"/>
 
     <TextView
@@ -95,14 +94,14 @@
         android:layout_marginEnd="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:text="Subscription: premium"
+        tools:text="Subscription: premium"
         android:textColor="#FFFFFF"
-        android:textSize="15dp"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/userAvatar"
         app:layout_constraintTop_toBottomOf="@id/userId"
         app:layout_constraintBottom_toBottomOf="@id/userAvatar"
-        tools:ignore="MissingConstraints"
+        tools:ignore="MissingConstraints,RtlHardcoded"
         android:gravity="center_vertical|left"/>
 
     <TextView
@@ -112,11 +111,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
         android:layout_marginTop="30dp"
-        android:text="Your Top Artists"
+        android:text="@string/top_genres"
         android:textColor="#FFFFFF"
-        android:textSize="35dp"
+        android:textSize="35sp"
         app:layout_constraintTop_toBottomOf="@id/userAvatar"
         tools:ignore="MissingConstraints"
         app:layout_constraintLeft_toLeftOf="parent"/>

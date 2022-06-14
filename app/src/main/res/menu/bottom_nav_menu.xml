@@ -4,21 +4,21 @@
     <item
         android:id="@+id/navigation_user"
         android:icon="@drawable/user_icon"
-        android:title="User" />
+        android:title="@string/user" />
 
     <item
         android:id="@+id/navigation_list"
         android:icon="@drawable/playlist_icon"
-        android:title="Playlists" />
+        android:title="@string/playlists" />
 
     <item
         android:id="@+id/navigation_liked"
         android:icon="@drawable/heart_icon"
-        android:title="Liked" />
+        android:title="@string/liked" />
 
     <item
         android:id="@+id/navigation_analytics"
         android:icon="@drawable/analytics_icon"
-        android:title="Analytics" />
+        android:title="@string/analytics" />
 
 </menu>

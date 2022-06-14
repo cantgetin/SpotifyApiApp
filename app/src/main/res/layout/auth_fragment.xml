@@ -16,11 +16,12 @@
         android:drawableLeft="@drawable/spotify_icon"
         android:drawablePadding="8dp"
         android:padding="8dp"
-        android:text="Log in with Spotify"
+        android:text="@string/login"
         android:textAllCaps="false"
         android:textColor="@android:color/white"
-        android:textSize="16dp"
-        app:backgroundTint="#1DB954" />
+        android:textSize="16sp"
+        app:backgroundTint="#1DB954"
+        tools:ignore="RtlHardcoded"/>
 
 
 </RelativeLayout>
