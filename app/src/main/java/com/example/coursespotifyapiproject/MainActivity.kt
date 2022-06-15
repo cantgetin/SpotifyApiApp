@@ -98,5 +98,9 @@ class MainActivity : AppCompatActivity() {
             true
         }
 
+    fun changeActiveFragment(fragment: Fragment){
+        if (activeFragment != userFragment) activeFragment = fragment
+    }
+
 }
 

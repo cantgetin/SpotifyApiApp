@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coursespotifyapiproject.MainActivity
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.data.model.Track
 import com.example.coursespotifyapiproject.ui.track.TrackDetailsFragment
@@ -42,6 +43,8 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
             val lol: String = (activity as AppCompatActivity?)!!.supportActionBar?.title as String
             (activity as AppCompatActivity?)!!.supportActionBar?.title = lol.plus(" > ").plus(playlistName)
         }
+
+        (activity as MainActivity).changeActiveFragment(this)
 
         return view
 

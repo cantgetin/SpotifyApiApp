@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.coursespotifyapiproject.MainActivity
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.data.model.Track
 
@@ -59,11 +60,11 @@ class TrackDetailsFragment(private val track: Track) : Fragment() {
             recyclerView.adapter = adapter
         }
 
-
+        (activity as MainActivity).changeActiveFragment(this)
 
         return view
     }
 
-    val itemClickListener: (String) -> Unit = {}
+    private val itemClickListener: (String) -> Unit = {}
 
 }
