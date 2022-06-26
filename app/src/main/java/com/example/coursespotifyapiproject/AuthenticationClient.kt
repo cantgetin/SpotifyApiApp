@@ -7,8 +7,10 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View.VISIBLE
 import android.widget.Toast
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentContainerView
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
@@ -147,7 +149,11 @@ class AuthenticationClient(val userAuthenticated: () -> Unit, private var activi
     private fun startUserAuthentication() {
         val mainActivity = activity as MainActivity
         val nhf = mainActivity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
-        nhf.navController.navigate(R.id.navigation_user)
+
+        var nhfView = mainActivity.findViewById<FragmentContainerView>(R.id.nav_host_fragment)
+        nhfView.visibility = VISIBLE
+
+        nhf.navController.navigate(R.id.authFragment)
     }
 
     fun handleDataFromIntent(data: Uri) {

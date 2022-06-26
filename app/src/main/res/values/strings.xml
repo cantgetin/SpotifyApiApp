@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Your Spotify genres</string>
+    <string name="app_name">Your Spotify genres DI</string>
     <string name="login">Log in with Spotify</string>
     <string name="top_genres">Your Top Genres</string>
     <string name="user">User</string>

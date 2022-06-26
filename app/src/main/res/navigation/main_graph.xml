@@ -4,14 +4,16 @@
     android:id="@+id/main_graph"
     app:startDestination="@id/authFragment">
 
-
     <fragment
         android:id="@+id/authFragment"
         android:name="com.example.coursespotifyapiproject.ui.auth.AuthFragment">
 
         <action
-            android:id="@+id/toList"
-            app:destination="@id/navigation_user">
+            android:id="@+id/action_signInFragment_to_usersFragment"
+            app:destination="@id/navigation_user"
+            app:launchSingleTop="true"
+            app:popUpTo='@id/main_graph'
+            app:popUpToInclusive="true" >
 
         </action>
     </fragment>
