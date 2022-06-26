@@ -24,7 +24,7 @@ class ArtistsAdapter(
 
                 artistName.text = artist.name
                 artistGenres.text = artist.name
-                this.let { Glide.with(it).load(artist.images[0].url).into(artistImage) }
+                this.let { Glide.with(it).load(artist.images?.get(0)?.url).into(artistImage) }
             }
         }
     }

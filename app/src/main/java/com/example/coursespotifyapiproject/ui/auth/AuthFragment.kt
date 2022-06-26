@@ -9,10 +9,14 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.SpotifyConstants
+import com.example.coursespotifyapiproject.di.utils.ViewModelFactory
 import kotlinx.android.synthetic.main.auth_fragment.view.*
+import javax.inject.Inject
 
 
-class AuthFragment : Fragment() {
+class AuthFragment @Inject constructor(
+viewModelFactory: ViewModelFactory
+) : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,

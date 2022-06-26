@@ -7,20 +7,25 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coursespotifyapiproject.R
-import com.example.coursespotifyapiproject.ui.tracks.TracksFragment
 import com.example.coursespotifyapiproject.utils.Status
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import com.example.coursespotifyapiproject.R
+import com.example.coursespotifyapiproject.di.utils.ViewModelFactory
+import com.example.coursespotifyapiproject.ui.tracks.TracksFragmentDirections
+import javax.inject.Inject
 
 
-class PlaylistsFragment : Fragment() {
+class PlaylistsFragment @Inject constructor(
+    viewModelFactory: ViewModelFactory
+) : Fragment() {
 
     private lateinit var adapter: PlaylistsAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: PlaylistsViewModel
+    private val viewModel: PlaylistsViewModel by viewModels { viewModelFactory}
     private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
@@ -43,16 +48,19 @@ class PlaylistsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[PlaylistsViewModel::class.java]
+        //viewModel = ViewModelProvider(this)[PlaylistsViewModel::class.java]
 
         setupUI()
         setupObservers()
     }
 
 
-    private val itemClickListener: (String, String) -> Unit = { id,name ->
-        requireActivity().supportFragmentManager.beginTransaction().hide(this)
-            .add(R.id.container, TracksFragment(id,name,false)).addToBackStack("playlist_to_tracks").commit()
+    private val itemClickListener: (View,String, String) -> Unit = { v,id,name ->
+
+
+        val action = TracksFragmentDirections.toLikedTracks(id,name)
+        v.findNavController().navigate(action)
+
     }
 
 

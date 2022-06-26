@@ -4,13 +4,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.coursespotifyapiproject.data.api.ApiHelper
 import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
-import com.example.coursespotifyapiproject.utils.Resource
 import com.example.coursespotifyapiproject.SpotifyConstants
+import com.example.coursespotifyapiproject.utils.Resource
 import kotlinx.coroutines.Dispatchers
+import javax.inject.Inject
 
-class TracksViewModel : ViewModel() {
+class TracksViewModel @Inject constructor(private val apiHelper : ApiHelper) : ViewModel() {
 
-    private val apiHelper = ApiHelper(RetrofitBuilder.apiService)
+    //private val apiHelper = ApiHelper(RetrofitBuilder.apiService)
     private val accessToken = SpotifyConstants.TOKEN
 
 

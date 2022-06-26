@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_graph"
+    app:startDestination="@id/authFragment">
+
+
+    <fragment
+        android:id="@+id/authFragment"
+        android:name="com.example.coursespotifyapiproject.ui.auth.AuthFragment">
+
+        <action
+            android:id="@+id/toList"
+            app:destination="@id/navigation_user">
+
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/navigation_user"
+        android:name="com.example.coursespotifyapiproject.ui.user.UserFragment" />
+
+
+    <fragment
+        android:id="@+id/navigation_list"
+        android:name="com.example.coursespotifyapiproject.ui.playlists.PlaylistsFragment">
+
+        <action
+            android:id="@+id/toPlaylistTracks"
+            app:destination="@+id/playlistTracks">
+            <argument
+                android:name="playlistId"
+                app:argType="string" />
+            <argument
+                android:name="playlistName"
+                app:argType="string" />
+            <argument
+                android:name="likedTracks"
+                android:defaultValue="false"
+                app:argType="boolean" />
+        </action>
+    </fragment>
+
+    <action
+        android:id="@+id/toLikedTracks"
+        app:destination="@+id/navigation_liked">
+        <argument
+            android:name="playlistId"
+            app:argType="string" />
+        <argument
+            android:name="playlistName"
+            app:argType="string" />
+        <argument
+            android:name="likedTracks"
+            android:defaultValue="false"
+            app:argType="boolean" />
+    </action>
+
+
+    <fragment
+        android:id="@+id/navigation_liked"
+        android:name="com.example.coursespotifyapiproject.ui.tracks.TracksFragment">
+        <argument
+            android:name="playlistId"
+            android:defaultValue="0"
+            app:argType="string" />
+        <argument
+            android:name="playlistName"
+            android:defaultValue="0"
+            app:argType="string" />
+        <argument
+            android:name="likedTracks"
+            android:defaultValue="true"
+            app:argType="boolean" />
+
+        <action
+            android:id="@+id/toTrackDetails"
+            app:destination="@+id/trackDetails">
+            <argument
+                android:name="track"
+                app:argType="com.example.coursespotifyapiproject.data.model.Track" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/playlistTracks"
+        android:name="com.example.coursespotifyapiproject.ui.tracks.TracksFragment">
+        <argument
+            android:name="playlistId"
+            android:defaultValue="0"
+            app:argType="string" />
+        <argument
+            android:name="playlistName"
+            android:defaultValue="0"
+            app:argType="string" />
+        <argument
+            android:name="likedTracks"
+            android:defaultValue="true"
+            app:argType="boolean" />
+
+        <action
+            android:id="@+id/toTrackDetails"
+            app:destination="@+id/trackDetails">
+            <argument
+                android:name="track"
+                app:argType="com.example.coursespotifyapiproject.data.model.Track" />
+        </action>
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_analytics"
+        android:name="com.example.coursespotifyapiproject.ui.analytics.AnalyticsFragment" />
+
+
+    <fragment
+        android:id="@+id/trackDetails"
+        android:name="com.example.coursespotifyapiproject.ui.track.TrackDetailsFragment">
+        <argument
+            android:name="track"
+            app:argType="com.example.coursespotifyapiproject.data.model.Track" />
+    </fragment>
+
+</navigation>

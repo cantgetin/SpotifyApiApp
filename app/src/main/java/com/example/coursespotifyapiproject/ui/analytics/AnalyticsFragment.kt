@@ -1,5 +1,7 @@
 package com.example.coursespotifyapiproject.ui.analytics
 
+import com.example.coursespotifyapiproject.di.utils.ViewModelFactory
+
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,19 +10,29 @@ import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.utils.Status
 
-class AnalyticsFragment : Fragment() {
+import javax.inject.Inject
+
+class AnalyticsFragment @Inject constructor(
+    viewModelFactory: ViewModelFactory
+) : Fragment() {
 
 
     private lateinit var adapter: AnalyticsAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: AnalyticsViewModel
     private lateinit var progressBar: ProgressBar
+
+    //private lateinit var viewModel: AnalyticsViewModel
+
+    private val viewModel: AnalyticsViewModel by viewModels { viewModelFactory}
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,7 +54,7 @@ class AnalyticsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[AnalyticsViewModel::class.java]
+        //viewModel = ViewModelProvider(this)[AnalyticsViewModel::class.java]
 
         setupUI()
         setupObservers()

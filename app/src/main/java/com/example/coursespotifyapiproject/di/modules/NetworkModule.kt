@@ -2,13 +2,12 @@ package com.example.coursespotifyapiproject.di.modules
 
 import com.example.coursespotifyapiproject.data.api.ApiHelper
 import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
-import dagger.Provides
 import dagger.Module
+import dagger.Provides
 
 @Module
-class ApiModule {
+class NetworkModule {
 
     @Provides
-    fun provideApiHelper(): ApiHelper = ApiHelper(RetrofitBuilder.apiService)
-
+    fun provideApiHelper() : ApiHelper = ApiHelper(RetrofitBuilder.apiService)
 }
