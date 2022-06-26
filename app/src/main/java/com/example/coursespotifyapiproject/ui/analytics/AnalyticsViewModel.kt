@@ -10,9 +10,7 @@ import javax.inject.Inject
 
 class AnalyticsViewModel @Inject constructor(private val apiHelper : ApiHelper) : ViewModel() {
 
-    //(RetrofitBuilder.apiService)
     private val accessToken = SpotifyConstants.TOKEN
-
 
     fun getPlaylists() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))

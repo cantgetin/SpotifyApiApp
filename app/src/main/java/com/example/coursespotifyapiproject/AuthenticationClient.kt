@@ -35,8 +35,6 @@ class AuthenticationClient(val userAuthenticated: () -> Unit, private var activi
 
     fun authenticate() {
 
-        //(activity.applicationContext as MainApplication).appComponent.inject(this)
-
         pref = activity.applicationContext.getSharedPreferences("spotify_api_app",
             DaggerAppCompatActivity.MODE_PRIVATE
         )

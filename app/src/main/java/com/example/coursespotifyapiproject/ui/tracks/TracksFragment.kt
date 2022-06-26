@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
@@ -23,10 +22,6 @@ import javax.inject.Inject
 class TracksFragment @Inject constructor(
     viewModelFactory: ViewModelFactory
 ) : Fragment() {
-
-
-
-//(private var playlistId: String, private val playlistName: String) : Fragment() {
 
     private lateinit var adapter: TracksAdapter
     private lateinit var recyclerView: RecyclerView
@@ -53,8 +48,6 @@ class TracksFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel = ViewModelProvider(this)[TracksViewModel::class.java]
-
 
         val args: TracksFragmentArgs by navArgs()
         val id = args.playlistId
@@ -69,15 +62,9 @@ class TracksFragment @Inject constructor(
     }
 
 
-    val itemClickListener: (View, Track) -> Unit = { v, track ->
-
-
+    private val itemClickListener: (View, Track) -> Unit = { v, track ->
         val action = TracksFragmentDirections.toTrackDetails(track)
         v.findNavController().navigate(action)
-
-//        requireActivity().supportFragmentManager.beginTransaction().hide(this)
-//            .add(R.id.container, TrackDetailsFragment(track)).addToBackStack("tracks_to_track").commit()
-
     }
 
     private fun setupUI() {

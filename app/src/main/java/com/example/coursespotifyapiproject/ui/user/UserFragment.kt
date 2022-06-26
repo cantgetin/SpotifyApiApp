@@ -8,13 +8,11 @@ import androidx.fragment.app.Fragment
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.di.utils.ViewModelFactory
-import com.example.coursespotifyapiproject.ui.playlists.PlaylistsViewModel
 import com.example.coursespotifyapiproject.utils.Status
 import kotlinx.android.synthetic.main.user_fragment.*
 import javax.inject.Inject

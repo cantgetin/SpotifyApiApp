@@ -11,7 +11,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coursespotifyapiproject.R
@@ -27,12 +26,7 @@ class AnalyticsFragment @Inject constructor(
     private lateinit var adapter: AnalyticsAdapter
     private lateinit var recyclerView: RecyclerView
     private lateinit var progressBar: ProgressBar
-
-    //private lateinit var viewModel: AnalyticsViewModel
-
-    private val viewModel: AnalyticsViewModel by viewModels { viewModelFactory}
-
-
+    private val viewModel: AnalyticsViewModel by viewModels { viewModelFactory }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,14 +48,13 @@ class AnalyticsFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel = ViewModelProvider(this)[AnalyticsViewModel::class.java]
 
         setupUI()
         setupObservers()
     }
 
 
-    val itemClickListener: (String) -> Unit = { }
+    private val itemClickListener: (String) -> Unit = { }
 
     private fun setupUI() {
         adapter = AnalyticsAdapter(arrayListOf(), itemClickListener)

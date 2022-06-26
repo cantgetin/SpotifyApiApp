@@ -11,9 +11,7 @@ import javax.inject.Inject
 
 class PlaylistsViewModel @Inject constructor(private val apiHelper : ApiHelper) : ViewModel() {
 
-    //private val apiHelper = ApiHelper(RetrofitBuilder.apiService)
     private val accessToken = SpotifyConstants.TOKEN
-
 
     fun getPlaylists() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))

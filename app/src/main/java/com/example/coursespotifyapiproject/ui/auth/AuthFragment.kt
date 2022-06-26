@@ -15,7 +15,7 @@ import javax.inject.Inject
 
 
 class AuthFragment @Inject constructor(
-viewModelFactory: ViewModelFactory
+    viewModelFactory: ViewModelFactory
 ) : Fragment() {
 
     override fun onCreateView(
@@ -40,7 +40,6 @@ viewModelFactory: ViewModelFactory
             val act = Intent(Intent.ACTION_VIEW, Uri.parse(url))
 
             startActivity(act)
-
         }
 
         return view

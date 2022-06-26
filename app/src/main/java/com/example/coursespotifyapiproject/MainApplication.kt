@@ -3,7 +3,6 @@ package com.example.coursespotifyapiproject
 import android.app.Application
 import com.example.coursespotifyapiproject.di.component.AppComponent
 import com.example.coursespotifyapiproject.di.component.DaggerAppComponent
-import com.example.coursespotifyapiproject.di.modules.AppModule
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasAndroidInjector
@@ -14,7 +13,7 @@ class MainApplication : Application(), HasAndroidInjector {
     @Inject
     lateinit var hasAndroidInjector: DispatchingAndroidInjector<Any>
 
-    val appComponent: AppComponent by lazy {
+    private val appComponent: AppComponent by lazy {
         DaggerAppComponent
             .builder()
             .setApplication(this)

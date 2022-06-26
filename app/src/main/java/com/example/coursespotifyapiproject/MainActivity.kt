@@ -1,23 +1,12 @@
 package com.example.coursespotifyapiproject
 
 import android.os.Bundle
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.coursespotifyapiproject.di.utils.FragmentFactory
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
-import androidx.navigation.ui.NavigationUI
-
-import android.view.MenuItem
-
-import androidx.annotation.NonNull
-import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
-
-import com.google.android.material.navigation.NavigationBarView
-
-
 
 
 class MainActivity : DaggerAppCompatActivity() {

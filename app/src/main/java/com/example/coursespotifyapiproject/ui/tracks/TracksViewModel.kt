@@ -11,7 +11,6 @@ import javax.inject.Inject
 
 class TracksViewModel @Inject constructor(private val apiHelper : ApiHelper) : ViewModel() {
 
-    //private val apiHelper = ApiHelper(RetrofitBuilder.apiService)
     private val accessToken = SpotifyConstants.TOKEN
 
 

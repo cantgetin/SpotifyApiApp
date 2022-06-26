@@ -3,7 +3,6 @@ package com.example.coursespotifyapiproject.ui.user
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.example.coursespotifyapiproject.data.api.ApiHelper
-import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
 import com.example.coursespotifyapiproject.SpotifyConstants
 import com.example.coursespotifyapiproject.utils.Resource
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +10,6 @@ import javax.inject.Inject
 
 class UserViewModel @Inject constructor(private val apiHelper : ApiHelper) : ViewModel() {
 
-    //private val apiHelper = ApiHelper(RetrofitBuilder.apiService)
     private val accessToken = SpotifyConstants.TOKEN
 
 

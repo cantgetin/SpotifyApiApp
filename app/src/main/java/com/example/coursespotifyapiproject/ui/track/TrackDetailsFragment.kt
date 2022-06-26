@@ -72,6 +72,6 @@ class TrackDetailsFragment @Inject constructor(
         return view
     }
 
-    val itemClickListener: (String) -> Unit = {}
+    private val itemClickListener: (String) -> Unit = {}
 
 }

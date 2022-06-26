@@ -1,7 +1,6 @@
 package com.example.coursespotifyapiproject.di.component
 
 import android.app.Application
-import androidx.lifecycle.ViewModel
 import com.example.coursespotifyapiproject.AuthenticationClient
 import com.example.coursespotifyapiproject.MainApplication
 import com.example.coursespotifyapiproject.di.modules.*

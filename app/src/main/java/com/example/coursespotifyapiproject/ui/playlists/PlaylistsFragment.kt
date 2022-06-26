@@ -25,7 +25,7 @@ class PlaylistsFragment @Inject constructor(
 
     private lateinit var adapter: PlaylistsAdapter
     private lateinit var recyclerView: RecyclerView
-    private val viewModel: PlaylistsViewModel by viewModels { viewModelFactory}
+    private val viewModel: PlaylistsViewModel by viewModels { viewModelFactory }
     private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
@@ -48,17 +48,16 @@ class PlaylistsFragment @Inject constructor(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //viewModel = ViewModelProvider(this)[PlaylistsViewModel::class.java]
 
         setupUI()
         setupObservers()
     }
 
 
-    private val itemClickListener: (View,String, String) -> Unit = { v,id,name ->
+    private val itemClickListener: (View, String, String) -> Unit = { v, id, name ->
 
 
-        val action = TracksFragmentDirections.toLikedTracks(id,name)
+        val action = TracksFragmentDirections.toLikedTracks(id, name)
         v.findNavController().navigate(action)
 
     }
@@ -97,7 +96,7 @@ class PlaylistsFragment @Inject constructor(
         if (!hidden) (activity as AppCompatActivity?)!!.supportActionBar?.title = this.toString()
     }
 
-        override fun toString(): String {
+    override fun toString(): String {
         return "Playlists"
     }
 }
