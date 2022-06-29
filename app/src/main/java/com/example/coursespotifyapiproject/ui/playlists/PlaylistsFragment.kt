@@ -57,7 +57,7 @@ class PlaylistsFragment @Inject constructor(
     private val itemClickListener: (View, String, String) -> Unit = { v, id, name ->
 
 
-        val action = TracksFragmentDirections.toLikedTracks(id, name)
+        val action = PlaylistsFragmentDirections.toPlaylistTracks(id,name)
         v.findNavController().navigate(action)
 
     }
