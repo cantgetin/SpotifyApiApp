@@ -1,26 +1,12 @@
 package com.example.coursespotifyapiproject.ui.analytics
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.example.coursespotifyapiproject.data.api.ApiHelper
-import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
-import com.example.coursespotifyapiproject.utils.Resource
-import com.example.coursespotifyapiproject.SpotifyConstants
-import kotlinx.coroutines.Dispatchers
+import com.example.coursespotifyapiproject.data.db.Repository
+import javax.inject.Inject
 
-class AnalyticsViewModel : ViewModel() {
+class AnalyticsViewModel @Inject constructor(repository: Repository) : ViewModel() {
 
-    private val apiHelper = ApiHelper(RetrofitBuilder.apiService)
-    private val accessToken = SpotifyConstants.TOKEN
+    val analytics = repository.userAnalytics
 
-
-    fun getPlaylists() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = apiHelper.getUserTopArtists("Bearer $accessToken")))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
-    }
 }
 

@@ -6,23 +6,26 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coursespotifyapiproject.MainActivity
 import com.example.coursespotifyapiproject.R
 import com.example.coursespotifyapiproject.data.model.Track
-import com.example.coursespotifyapiproject.ui.track.TrackDetailsFragment
+import com.example.coursespotifyapiproject.di.utils.ViewModelFactory
 import com.example.coursespotifyapiproject.utils.Status
+import javax.inject.Inject
 
 
-class TracksFragment(private var playlistId: String, private val playlistName: String, private val likedTracks: Boolean) : Fragment() {
+class TracksFragment @Inject constructor(
+    viewModelFactory: ViewModelFactory
+) : Fragment() {
 
     private lateinit var adapter: TracksAdapter
     private lateinit var recyclerView: RecyclerView
-    private lateinit var viewModel: TracksViewModel
+    private val viewModel: TracksViewModel by viewModels { viewModelFactory}
     private lateinit var progressBar: ProgressBar
 
     override fun onCreateView(
@@ -39,30 +42,29 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
             recyclerView.layoutManager = LinearLayoutManager(activity)
         }
 
-        if (!likedTracks) {
-            val lol: String = (activity as AppCompatActivity?)!!.supportActionBar?.title as String
-            (activity as AppCompatActivity?)!!.supportActionBar?.title = lol.plus(" > ").plus(playlistName)
-        }
-
-        (activity as MainActivity).changeActiveFragment(this)
-
         return view
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[TracksViewModel::class.java]
+
+        val args: TracksFragmentArgs by navArgs()
+        val id = args.playlistId
+        val name = args.playlistName
+        val isLiked = args.likedTracks
+
+//        val lol: String = (activity as AppCompatActivity?)!!.supportActionBar?.title as String
+//        (activity as AppCompatActivity?)!!.supportActionBar?.title = lol.plus(" > ").plus(name)
 
         setupUI()
-        setupObservers()
+        setupObservers(id, isLiked)
     }
 
 
-    val itemClickListener: (Track) -> Unit = { track ->
-        requireActivity().supportFragmentManager.beginTransaction().hide(this)
-            .add(R.id.container, TrackDetailsFragment(track)).addToBackStack("tracks_to_track").commit()
-
+    private val itemClickListener: (View, Track) -> Unit = { v, track ->
+        val action = TracksFragmentDirections.toTrackDetails(track)
+        v.findNavController().navigate(action)
     }
 
     private fun setupUI() {
@@ -70,10 +72,9 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
         recyclerView.adapter = adapter
     }
 
-    private fun setupObservers() {
-
+    private fun setupObservers(playlistId: String, likedTracks: Boolean) {
         if (likedTracks) {
-            viewModel.getLikedTracks().observe(viewLifecycleOwner) { resource ->
+            viewModel.likedTracks.observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         recyclerView.visibility = View.VISIBLE
@@ -115,13 +116,6 @@ class TracksFragment(private var playlistId: String, private val playlistName: S
                     }
                 }
             }
-        }
-    }
-
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        if (likedTracks) {
-            if (!hidden) (activity as AppCompatActivity?)!!.supportActionBar?.title = "Liked tracks"
         }
     }
 }

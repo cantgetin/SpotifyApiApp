@@ -1,6 +1,8 @@
 package com.example.coursespotifyapiproject.data.model
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
+
 
 data class Track (
     @SerializedName("artists")
@@ -12,4 +14,4 @@ data class Track (
     @SerializedName("album")
     val album: Album,
 
-)
+    ): Serializable

@@ -1,106 +1,55 @@
 package com.example.coursespotifyapiproject
 
-import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
-import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View.VISIBLE
+import androidx.fragment.app.FragmentContainerView
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
+import com.example.coursespotifyapiproject.di.utils.FragmentFactory
+import com.example.coursespotifyapiproject.ui.auth.AuthFragmentDirections
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.main_activity.*
-import androidx.fragment.app.Fragment
-import com.example.coursespotifyapiproject.ui.analytics.AnalyticsFragment
-import com.example.coursespotifyapiproject.ui.playlists.PlaylistsFragment
-import com.example.coursespotifyapiproject.ui.tracks.TracksFragment
-import com.example.coursespotifyapiproject.ui.user.UserFragment
+import dagger.android.support.DaggerAppCompatActivity
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var pref: SharedPreferences
+    lateinit var fragmentFactory: FragmentFactory
 
     private lateinit var authClient: AuthenticationClient
-
-    private lateinit var userFragment: UserFragment
-    private lateinit var playlistsFragment: PlaylistsFragment
-    private lateinit var analyticsFragment: AnalyticsFragment
-    private lateinit var likedFragment: TracksFragment
-
-    private lateinit var activeFragment: Fragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        (applicationContext as App).appComponent.inject(this)
-        supportActionBar!!.elevation = 0f
-
-        if (intent.data != null) handleDataFromIntent(intent.data!!)
-
+        authClient = AuthenticationClient(userAuthenticated, this)
+        supportFragmentManager.fragmentFactory = fragmentFactory
         setContentView(R.layout.main_activity)
+        if (intent.data != null) authClient.handleDataFromIntent(intent.data!!)
+        authClient.authenticate()
+
         val bottomNav: BottomNavigationView = findViewById(R.id.navigation_bar)
-        bottomNav.setOnNavigationItemSelectedListener(navListener)
-        navigation_bar.visibility = View.GONE
 
-        authClient = AuthenticationClient(userAuthenticated)
-        authClient.connect(savedInstanceState, this)
-    }
+        var navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        var navController = navHostFragment.navController
 
-    private fun handleDataFromIntent(data: Uri) {
-        val mainPart: String = data.toString().split("?")[1]
-        val arguments: List<String> = mainPart.split("&")
-        val state = arguments[1].split("state=").toTypedArray()[1]
-
-        if ((state == SpotifyConstants.STATE) && ("error" !in mainPart)) {
-            val code = arguments[0].split("code=").toTypedArray()[1]
-            SpotifyConstants.CODE = code
-
-            val edit: SharedPreferences.Editor = pref.edit()
-            edit.putString("spotify_auth_code", code)
-            edit.apply()
-        }
+        bottomNav.setupWithNavController(navController)
     }
 
     private val userAuthenticated: () -> Unit = {
-        userFragment = UserFragment()
-        playlistsFragment = PlaylistsFragment()
-        analyticsFragment = AnalyticsFragment()
-        likedFragment = TracksFragment("","Liked Tracks", true)
 
-        navigation_bar.visibility = View.VISIBLE
+        var navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        var navController = navHostFragment.navController
+        navController.navigate(AuthFragmentDirections.actionSignInFragmentToUsersFragment())
 
-        supportFragmentManager.beginTransaction().add(R.id.container, likedFragment, "4")
-            .hide(likedFragment).commit()
-        supportFragmentManager.beginTransaction().add(R.id.container, analyticsFragment, "3")
-            .hide(analyticsFragment).commit()
-        supportFragmentManager.beginTransaction().add(R.id.container, playlistsFragment, "2")
-            .hide(playlistsFragment).commit()
-        supportFragmentManager.beginTransaction().add(R.id.container, userFragment, "1").commit()
+        var bnv = findViewById<BottomNavigationView>(R.id.navigation_bar)
+        bnv.visibility = VISIBLE
 
-        activeFragment = userFragment
-        supportActionBar!!.title = userFragment.toString()
-
+        var nhfView = findViewById<FragmentContainerView>(R.id.nav_host_fragment)
+        nhfView.visibility = VISIBLE
     }
 
-    private val navListener =
-        BottomNavigationView.OnNavigationItemSelectedListener { item ->
-            var selectedFragment: Fragment? = null
-            when (item.itemId) {
-                R.id.navigation_user -> selectedFragment = userFragment
-                R.id.navigation_list -> selectedFragment = playlistsFragment
-                R.id.navigation_analytics -> selectedFragment = analyticsFragment
-                R.id.navigation_liked -> selectedFragment = likedFragment
-            }
-            if (selectedFragment != null) {
-                supportFragmentManager.beginTransaction().hide(activeFragment)
-                    .show(selectedFragment).commit()
-                activeFragment = selectedFragment
-            }
-            true
-        }
-
-    fun changeActiveFragment(fragment: Fragment){
-        if (activeFragment != userFragment) activeFragment = fragment
-    }
 
 }
-

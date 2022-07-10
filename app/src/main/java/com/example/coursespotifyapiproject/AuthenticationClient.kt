@@ -1,35 +1,46 @@
 package com.example.coursespotifyapiproject
 
 import android.app.Activity
+import android.content.Context
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View.VISIBLE
 import android.widget.Toast
+import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentContainerView
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import com.example.coursespotifyapiproject.data.api.ApiHelper
+import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
 import com.example.coursespotifyapiproject.data.model.AuthorizationResponse
-import com.example.coursespotifyapiproject.ui.auth.AuthFragment
+import com.example.coursespotifyapiproject.di.component.AppComponent
+import com.example.coursespotifyapiproject.di.component.DaggerAppComponent
+import com.example.coursespotifyapiproject.di.modules.AppModule
+import dagger.android.support.DaggerAppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 import javax.inject.Inject
-import androidx.fragment.app.FragmentActivity
-import com.example.coursespotifyapiproject.data.api.ApiHelper
-import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
 
 
-class AuthenticationClient(val userAuthenticated: () -> Unit) {
+class AuthenticationClient(val userAuthenticated: () -> Unit, private var activity: Activity) {
 
-    @Inject
+
     lateinit var pref: SharedPreferences
 
     private val apiHelper = ApiHelper(RetrofitBuilder.apiService)
-    lateinit var activity: Activity
 
-    fun connect(savedInstanceState: Bundle?, activity: Activity) {
+    fun authenticate() {
 
-        this.activity = activity
-        (activity.applicationContext as App).appComponent.inject(this)
+        pref = activity.applicationContext.getSharedPreferences("spotify_api_app",
+            DaggerAppCompatActivity.MODE_PRIVATE
+        )
+
         if (userHasAuthCodeStored()) {
             SpotifyConstants.CODE = pref.getString("spotify_auth_code", null).toString()
             if (userHasRefreshTokenStored()) {
@@ -37,7 +48,7 @@ class AuthenticationClient(val userAuthenticated: () -> Unit) {
                     pref.getString("spotify_refresh_token", null).toString()
                 getApiTokenByRefreshToken()
             } else getApiTokenByAuthCode()
-        } else if (!userHasAuthCodeStored()) startUserAuthentication(savedInstanceState)
+        } else if (!userHasAuthCodeStored()) startUserAuthentication()
     }
 
     private fun getApiTokenByAuthCode() {
@@ -135,14 +146,33 @@ class AuthenticationClient(val userAuthenticated: () -> Unit) {
         })
     }
 
-    private fun startUserAuthentication(savedInstanceState: Bundle?) {
+    private fun startUserAuthentication() {
+        val mainActivity = activity as MainActivity
+        val nhf = mainActivity.supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
 
-        val ft = (activity as FragmentActivity).supportFragmentManager
+        var nhfView = mainActivity.findViewById<FragmentContainerView>(R.id.nav_host_fragment)
+        nhfView.visibility = VISIBLE
 
-        if (savedInstanceState == null) {
-            ft.beginTransaction()
-                .replace(R.id.container, AuthFragment())
-                .commitNow()
+        nhf.navController.navigate(R.id.authFragment)
+    }
+
+    fun handleDataFromIntent(data: Uri) {
+
+        pref = activity.applicationContext.getSharedPreferences("spotify_api_app",
+            DaggerAppCompatActivity.MODE_PRIVATE
+        )
+
+        val mainPart: String = data.toString().split("?")[1]
+        val arguments: List<String> = mainPart.split("&")
+        val state = arguments[1].split("state=").toTypedArray()[1]
+
+        if ((state == SpotifyConstants.STATE) && ("error" !in mainPart)) {
+            val code = arguments[0].split("code=").toTypedArray()[1]
+            SpotifyConstants.CODE = code
+
+            val edit: SharedPreferences.Editor = pref.edit()
+            edit.putString("spotify_auth_code", code)
+            edit.apply()
         }
     }
 
