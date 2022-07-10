@@ -49,7 +49,7 @@ class UserFragment @Inject constructor(
 
     private fun setupUI() {
 
-        viewModel.getUserTopArtists().observe(viewLifecycleOwner) { resource ->
+        viewModel.userTopArtists.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
                     resource.data?.let { artist ->
@@ -68,7 +68,7 @@ class UserFragment @Inject constructor(
 
         }
 
-        viewModel.getUserInfo().observe(viewLifecycleOwner) { resource ->
+        viewModel.userInfo.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
                     resource.data?.let { user ->

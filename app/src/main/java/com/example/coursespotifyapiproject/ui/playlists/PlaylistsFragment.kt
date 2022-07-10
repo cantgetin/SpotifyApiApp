@@ -69,7 +69,7 @@ class PlaylistsFragment @Inject constructor(
     }
 
     private fun setupObservers() {
-        viewModel.getPlaylists().observe(viewLifecycleOwner) { resource ->
+        viewModel.userPlaylists.observe(viewLifecycleOwner) { resource ->
             when (resource.status) {
                 Status.SUCCESS -> {
                     recyclerView.visibility = View.VISIBLE

@@ -1,36 +1,17 @@
 package com.example.coursespotifyapiproject.ui.tracks
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.liveData
-import com.example.coursespotifyapiproject.data.api.ApiHelper
-import com.example.coursespotifyapiproject.data.api.RetrofitBuilder
-import com.example.coursespotifyapiproject.SpotifyConstants
+import com.example.coursespotifyapiproject.data.db.Repository
+import com.example.coursespotifyapiproject.data.model.Track
 import com.example.coursespotifyapiproject.utils.Resource
-import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
-class TracksViewModel @Inject constructor(private val apiHelper : ApiHelper) : ViewModel() {
+class TracksViewModel @Inject constructor(private val repository: Repository) : ViewModel() {
 
-    private val accessToken = SpotifyConstants.TOKEN
+    val likedTracks : LiveData<Resource<MutableList<Track>>> = repository.likedTracks
 
-
-    fun getTracks(playlistId: String) = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = apiHelper.getPlaylistTracksWithGenres("Bearer $accessToken", playlistId, false)))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
+    fun getTracks(playlistId: String) : LiveData<Resource<MutableList<Track>>> {
+        return repository.getTracks(playlistId)
     }
-
-    fun getLikedTracks() = liveData(Dispatchers.IO) {
-        emit(Resource.loading(data = null))
-        try {
-            emit(Resource.success(data = apiHelper.getPlaylistTracksWithGenres("Bearer $accessToken", "", true)))
-        } catch (exception: Exception) {
-            emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
-        }
-    }
-
-
 }

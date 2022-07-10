@@ -74,7 +74,7 @@ class TracksFragment @Inject constructor(
 
     private fun setupObservers(playlistId: String, likedTracks: Boolean) {
         if (likedTracks) {
-            viewModel.getLikedTracks().observe(viewLifecycleOwner) { resource ->
+            viewModel.likedTracks.observe(viewLifecycleOwner) { resource ->
                 when (resource.status) {
                     Status.SUCCESS -> {
                         recyclerView.visibility = View.VISIBLE
