@@ -49,5 +49,4 @@ class ArtistsAdapter(
 
     override fun getItemCount(): Int = this.artists.size
 
-
 }

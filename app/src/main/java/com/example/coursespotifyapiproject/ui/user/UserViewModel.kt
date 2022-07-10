@@ -12,5 +12,4 @@ class UserViewModel @Inject constructor(repository: Repository) : ViewModel() {
 
     val userInfo : LiveData<Resource<User>> = repository.userInfo
     val userTopArtists : LiveData<Resource<SpotifyComplexResponseTopArtists>> = repository.userTopArtists
-
 }

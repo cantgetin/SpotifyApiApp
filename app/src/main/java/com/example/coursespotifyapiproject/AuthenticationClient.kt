@@ -62,8 +62,6 @@ class AuthenticationClient(val userAuthenticated: () -> Unit, private var activi
             TODO("VERSION.SDK_INT < O")
         }
 
-        Log.d("fucking", SpotifyConstants.CODE)
-
         val retrofitData = apiHelper.getApiTokenByAuthCode(
             "Basic $authorizationParamEncoded",
             "authorization_code",
@@ -111,8 +109,6 @@ class AuthenticationClient(val userAuthenticated: () -> Unit, private var activi
         } else {
             TODO("VERSION.SDK_INT < O")
         }
-
-        Log.d("fucking", SpotifyConstants.CODE)
 
         val retrofitData = apiHelper.getApiTokenByRefreshToken(
             "Basic $authorizationParamEncoded",

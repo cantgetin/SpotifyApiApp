@@ -43,7 +43,6 @@ class PlaylistsFragment @Inject constructor(
         }
 
         return view
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -56,10 +55,8 @@ class PlaylistsFragment @Inject constructor(
 
     private val itemClickListener: (View, String, String) -> Unit = { v, id, name ->
 
-
-        val action = PlaylistsFragmentDirections.toPlaylistTracks(id,name)
+        val action = PlaylistsFragmentDirections.toPlaylistTracks(id, name)
         v.findNavController().navigate(action)
-
     }
 
 

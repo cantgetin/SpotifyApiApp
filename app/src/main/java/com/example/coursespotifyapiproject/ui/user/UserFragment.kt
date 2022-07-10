@@ -34,13 +34,10 @@ class UserFragment @Inject constructor(
 
         val view =  inflater.inflate(R.layout.user_fragment, container, false)
 
-
-
         recyclerView = view.findViewById(R.id.topArtistRecyclerView)
         artistsAdapter = ArtistsAdapter(arrayListOf())
         recyclerView.adapter = artistsAdapter
         recyclerView.layoutManager = LinearLayoutManager(activity)
-
 
         setupUI()
 
@@ -65,7 +62,6 @@ class UserFragment @Inject constructor(
                     progressBar.visibility = View.VISIBLE
                 }
             }
-
         }
 
         viewModel.userInfo.observe(viewLifecycleOwner) { resource ->
@@ -98,9 +94,6 @@ class UserFragment @Inject constructor(
                 }
             }
         }
-
-
-
     }
 
     override fun onHiddenChanged(hidden: Boolean) {

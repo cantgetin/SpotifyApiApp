@@ -7,6 +7,5 @@ import javax.inject.Inject
 class AnalyticsViewModel @Inject constructor(repository: Repository) : ViewModel() {
 
     val analytics = repository.userAnalytics
-
 }
 

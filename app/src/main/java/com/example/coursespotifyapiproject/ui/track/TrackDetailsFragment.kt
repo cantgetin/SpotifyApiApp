@@ -53,10 +53,7 @@ class TrackDetailsFragment @Inject constructor(
             }
         }
 
-
-
         this.let { Glide.with(it).load(track.album.images[0].url).into(trackImage) }
-
 
         view.apply {
             recyclerView = view.findViewById(R.id.rView)
@@ -66,8 +63,6 @@ class TrackDetailsFragment @Inject constructor(
             adapter.addGenres(genres)
             recyclerView.adapter = adapter
         }
-
-
 
         return view
     }
