@@ -1,8 +1,6 @@
 package com.example.coursespotifyapiproject.data.api
 
-import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseArtists
-import com.example.coursespotifyapiproject.data.model.SpotifyComplexResponseTracks
-import com.example.coursespotifyapiproject.data.model.Track
+import com.example.coursespotifyapiproject.data.model.*
 
 class ApiHelper(private val apiService: ApiService) {
 
@@ -12,6 +10,26 @@ class ApiHelper(private val apiService: ApiService) {
 
     suspend fun getUserTopArtists(authorization: String) =
         apiService.getUserTopArtists(authorization)
+
+    suspend fun getAnalyticsFromApi(authorization: String): ArrayList<Genre> {
+
+        val response = apiService.getUserTopArtists(authorization)
+        val genreNames: ArrayList<String> = ArrayList()
+        var genres: ArrayList<Genre> = ArrayList()
+
+        response.items.forEach { artist ->
+            artist.genres.forEach { genreName ->
+                genreNames.add(genreName)
+            }
+        }
+
+        genreNames.forEach { element ->
+            var genre = Genre(element, genreNames.count { it == element})
+            genres.add(genre)
+        }
+
+        return genres
+    }
 
     fun getApiTokenByAuthCode(
         authorization: String,

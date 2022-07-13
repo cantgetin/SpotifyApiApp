@@ -69,7 +69,7 @@ object Repository {
     private fun getAnalyticsFromApi() = liveData(Dispatchers.IO) {
         emit(Resource.loading(data = null))
         try {
-            emit(Resource.success(data = apiHelper.getUserTopArtists("Bearer $accessToken")))
+            emit(Resource.success(data = apiHelper.getAnalyticsFromApi("Bearer $accessToken")))
         } catch (exception: Exception) {
             emit(Resource.error(data = null, message = exception.message ?: "Error Occurred!"))
         }

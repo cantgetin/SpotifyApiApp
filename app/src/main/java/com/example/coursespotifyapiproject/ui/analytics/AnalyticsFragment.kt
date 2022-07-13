@@ -69,15 +69,7 @@ class AnalyticsFragment @Inject constructor(
                     progressBar.visibility = View.GONE
                     resource.data?.let { response ->
 
-                        val genres: ArrayList<String> = ArrayList()
-
-                        response.items.forEach { artist ->
-                            artist.genres.forEach { genre ->
-                                genres.add(genre)
-                            }
-                        }
-
-                        adapter.addGenres(genres)
+                        adapter.addGenres(response)
                     }
                 }
                 Status.ERROR -> {
