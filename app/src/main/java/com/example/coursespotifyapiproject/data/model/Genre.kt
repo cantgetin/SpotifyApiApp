@@ -8,4 +8,6 @@ data class Genre(
     var name: String,
     @SerializedName("count")
     var count: Int,
+    @SerializedName("percent")
+    var percent: Float,
 )

@@ -25,19 +25,18 @@ class AnalyticsAdapter(
 
                 val img = this.findViewById<ImageView>(R.id.genreImage)
                 val str = this.findViewById<TextView>(R.id.genreName)
-                val count = this.findViewById<TextView>(R.id.genreCount)
-
+                val count = this.findViewById<TextView>(R.id.genrePercent)
 
                 str.text = genre.name
-                count.text = "count " +genre.count.toString()
+                count.text = String.format("%.2f",genre.percent) + "%"
 
-                val rnd = Random()
-                val color = Color.argb(255, rnd.nextInt(256), rnd.nextInt(256), rnd.nextInt(256))
-
+                val color = Color.parseColor(getColorCode(genre.name))
                 img.setBackgroundColor(color)
-
-
             }
+        }
+
+        private fun getColorCode(inputString: String): String {
+            return String.format("#%06x", 0xFFFFFF and inputString.hashCode())
         }
 
     }
@@ -57,7 +56,7 @@ class AnalyticsAdapter(
         holder.itemView.setOnClickListener {}
     }
 
-    fun addGenres(genres: ArrayList<Genre>) {
+    fun addGenres(genres: List<Genre>) {
         this.genres.apply {
             clear()
             addAll(genres)

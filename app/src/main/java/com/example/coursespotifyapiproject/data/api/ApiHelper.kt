@@ -11,7 +11,7 @@ class ApiHelper(private val apiService: ApiService) {
     suspend fun getUserTopArtists(authorization: String) =
         apiService.getUserTopArtists(authorization)
 
-    suspend fun getAnalyticsFromApi(authorization: String): ArrayList<Genre> {
+    suspend fun getAnalyticsFromApi(authorization: String): List<Genre> {
 
         val response = apiService.getUserTopArtists(authorization)
         val genreNames: ArrayList<String> = ArrayList()
@@ -24,11 +24,20 @@ class ApiHelper(private val apiService: ApiService) {
         }
 
         genreNames.forEach { element ->
-            var genre = Genre(element, genreNames.count { it == element})
+            var genre = Genre(element, genreNames.count { it == element}, 0f)
             genres.add(genre)
         }
 
-        return genres
+        genres = genres.distinct() as ArrayList<Genre>
+
+
+        val percent : Float = (genres.count() / 100f).toFloat()
+
+        genres.forEach { element ->
+            element.percent = ((element.count / percent) / 1.0).toFloat()
+        }
+
+        return genres.distinct().sortedWith(compareByDescending { it.percent })
     }
 
     fun getApiTokenByAuthCode(

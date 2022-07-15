@@ -20,27 +20,23 @@
         android:id="@+id/genreName"
         style="@style/TextAppearance.AppCompat.Large"
         android:layout_width="0dp"
-        android:textColor="#FFFFFF"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
+        android:textColor="#FFFFFF"
         android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toStartOf="@id/genreCount"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/genreImage"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="MindOrks" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/genreCount"
-        style="@style/TextAppearance.AppCompat.Large"
+        android:id="@+id/genrePercent"
         android:layout_width="0dp"
-        app:layout_constraintWidth_percent="0.25"
-        android:textColor="#FFFFFF"
+        android:textColor="#b5b5b5"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/genreName"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/genreName"
+        app:layout_constraintTop_toBottomOf="@+id/genreName"
         tools:text="MindOrks" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
