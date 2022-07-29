@@ -11,9 +11,12 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coursespotifyapiproject.R
+import com.example.coursespotifyapiproject.data.model.Genre
+import com.example.coursespotifyapiproject.ui.playlists.PlaylistsFragmentDirections
 import com.example.coursespotifyapiproject.utils.Status
 
 import javax.inject.Inject
@@ -54,7 +57,11 @@ class AnalyticsFragment @Inject constructor(
     }
 
 
-    private val itemClickListener: (String) -> Unit = { }
+    private val itemClickListener: (View, Genre) -> Unit = { v,genre ->
+
+        val action = AnalyticsFragmentDirections.toGenreDetails(genre)
+        v.findNavController().navigate(action)
+    }
 
     private fun setupUI() {
         adapter = AnalyticsAdapter(arrayListOf(), itemClickListener)

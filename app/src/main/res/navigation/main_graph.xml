@@ -109,18 +109,33 @@
         </action>
     </fragment>
 
-
-    <fragment
-        android:id="@+id/navigation_analytics"
-        android:name="com.example.coursespotifyapiproject.ui.analytics.AnalyticsFragment" />
-
-
     <fragment
         android:id="@+id/trackDetails"
         android:name="com.example.coursespotifyapiproject.ui.track.TrackDetailsFragment">
         <argument
             android:name="track"
             app:argType="com.example.coursespotifyapiproject.data.model.Track" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/navigation_analytics"
+        android:name="com.example.coursespotifyapiproject.ui.analytics.AnalyticsFragment">
+        <action
+            android:id="@+id/toGenreDetails"
+            app:destination="@+id/genreDetails">
+            <argument
+                android:name="genre"
+                app:argType="com.example.coursespotifyapiproject.data.model.Genre" />
+        </action>
+    </fragment>
+
+    <fragment
+        android:id="@+id/genreDetails"
+        android:name="com.example.coursespotifyapiproject.ui.genre.GenreDetailsFragment">
+        <argument
+            android:name="genre"
+            app:argType="com.example.coursespotifyapiproject.data.model.Genre" />
     </fragment>
 
 </navigation>

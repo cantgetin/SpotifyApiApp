@@ -15,7 +15,7 @@ import com.example.coursespotifyapiproject.data.model.Genre
 
 class AnalyticsAdapter(
     private val genres: ArrayList<Genre>,
-    val itemClickListener: (String) -> Unit
+    val itemClickListener: (View, Genre) -> Unit
 ) : RecyclerView.Adapter<AnalyticsAdapter.DataViewHolder>() {
 
     class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -53,7 +53,9 @@ class AnalyticsAdapter(
 
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         holder.bind(genres[position])
-        holder.itemView.setOnClickListener {}
+        holder.itemView.setOnClickListener {
+            itemClickListener.invoke(it, genres[position])
+        }
     }
 
     fun addGenres(genres: List<Genre>) {

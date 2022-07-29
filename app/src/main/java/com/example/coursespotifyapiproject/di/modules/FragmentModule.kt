@@ -4,6 +4,7 @@ import androidx.fragment.app.Fragment
 import com.example.coursespotifyapiproject.di.utils.FragmentKey
 import com.example.coursespotifyapiproject.ui.analytics.AnalyticsFragment
 import com.example.coursespotifyapiproject.ui.auth.AuthFragment
+import com.example.coursespotifyapiproject.ui.genre.GenreDetailsFragment
 import com.example.coursespotifyapiproject.ui.playlists.PlaylistsFragment
 import com.example.coursespotifyapiproject.ui.track.TrackDetailsFragment
 import com.example.coursespotifyapiproject.ui.tracks.TracksFragment
@@ -44,4 +45,9 @@ interface FragmentModule {
     @IntoMap
     @FragmentKey(TrackDetailsFragment::class)
     fun bindTrackDetailsFragment(fragment: TrackDetailsFragment): Fragment
+
+    @Binds
+    @IntoMap
+    @FragmentKey(GenreDetailsFragment::class)
+    fun bindGenreDetailsFragment(fragment: GenreDetailsFragment): Fragment
 }
